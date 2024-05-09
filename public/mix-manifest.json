@@ -1,0 +1,21 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/default.js": "/js/default.js",
+    "/js/front_scripts.js": "/js/front_scripts.js",
+    "/js/admins.js": "/js/admins.js",
+    "/js/roles.js": "/js/roles.js",
+    "/js/users.js": "/js/users.js",
+    "/js/coupons.js": "/js/coupons.js",
+    "/js/products.js": "/js/products.js",
+    "/js/attributes.js": "/js/attributes.js",
+    "/js/categories.js": "/js/categories.js",
+    "/js/sliders.js": "/js/sliders.js",
+    "/js/banners.js": "/js/banners.js",
+    "/js/currencies.js": "/js/currencies.js",
+    "/js/notifications.js": "/js/notifications.js",
+    "/js/review.js": "/js/review.js",
+    "/js/filter-products.js": "/js/filter-products.js",
+    "/js/order.js": "/js/order.js",
+    "/css/default.css": "/css/default.css",
+    "/css/front_styles.css": "/css/front_styles.css"
+}
