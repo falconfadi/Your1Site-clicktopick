@@ -30,7 +30,9 @@
                         @foreach(getMainCategories() as $category)
 
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link" data-toggle="dropdown">{{$category->name}} <i class="fa fa-angle-down float-right mt-1"></i></a>
+                                <a href="#" class="nav-link" data-toggle="dropdown">{{$category->name}} 
+                                <i class="fa fa-angle-down float-right mt-1"></i>
+                                </a>
                                 <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
                                     @foreach($category->subcategories as $item)
 
@@ -107,7 +109,7 @@
                 <div class="page-content">
                     @if(count(getMainProductCategories())>0)
                         <div class="">
-                            <div class="row grid cols-lg-4 cols-md-2 mb-10" data-grid-options="{
+                            <div class="rowx grid cols-lg-4 cols-md-2 m-0 p-0 mb-10" data-grid-options="{
                         'layoutMode': 'fitRows'
                     }">
                                 @foreach(getMainProductCategories() as $item)
@@ -121,8 +123,8 @@
                         'layoutMode': 'fitRows'
                     }">
                             <div class="w-50 text-center" style="margin: 108px auto; ">
-                                <img onerror="this.src='{{asset('assets/images/icons/Search engines-bro.png')}}';"  
-                                src="{{asset('assets/images/no-product.png')}}" >
+                                <!--<img onerror="this.src='{{asset('assets/images/icons/Search engines-bro.png')}}';"  -->
+                                <!--src="{{asset('assets/images/no-product.png')}}" >-->
                                 <p style="margin-top: 21px;font-weight: bold;" class="text-dark">
                                     {{__('front.no_category')}}</p>
                                 <a href="{{route('user.index')}}"

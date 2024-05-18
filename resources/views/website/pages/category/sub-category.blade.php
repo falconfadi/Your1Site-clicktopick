@@ -16,6 +16,7 @@
         <div class="container">
             <ul class="breadcrumb">
                 <li><a href="{{route('user.index')}}">{{__('front.home')}}</a></li>
+                <li> - </li>
                 <li>{{$category->name}}</li>
             </ul>
         </div>
@@ -34,11 +35,12 @@
                 </div>
             </div>
         @else
-            <div class="row grid cols-lg-3 cols-md-2 mb-2" data-grid-options="{
+            <div class="row grid cols-lg-3 cols-md-2 m-0 mb-2" data-grid-options="{
                         'layoutMode': 'fitRows'
                     }">
                 <div class="w-50 text-center" style="margin: 21px auto; ">
-                    <img src="{{asset('web/images/icons/Search engines-bro.png')}}" onerror="this.src='{{asset('web/images/no-image.jpg')}}';">
+                    <!--<img src="{{asset('web/images/icons/Search engines-bro.png')}}" 
+                    onerror="this.src='{{asset('web/images/no-image.jpg')}}';">-->
                     <p class="text-muted">{{__('front.no_category')}}</p>
                 </div>
             </div>
