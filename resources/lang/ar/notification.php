@@ -26,7 +26,7 @@ return [
     'status_ongoing' => 'تمت الموافقة على طلبك.',
     'status_cancelled' => 'تم إلغاء طلبك.',
     'status_delivered' => 'تم تسليم طلبك.',
-    'status_refunded' => "تم استرداد طلبك",
+    'status_refunded' => "تم استرداد طلبك".,
     'please_check_notification_credentials' => 'يرجى التحقق من بيانات اعتماد الإخطار',
     'new_order' => 'تم إنشاء طلب جديد ، يرجى التحقق من الطلبات لمراجعتها',
     'images' => 'الصور',

@@ -91,24 +91,27 @@
 											</div><br><br>
 											<div class="card-body pt-3 pb-0">
 												<div class="col-md-12 row">
-													<h5>{{ __('category.image') }}</h5>
-													<div class="card-body">
-														<div class="d-flex align-items-center p-5">
-															<!--begin::Icon-->
-															<div class="mr-6">
-																<span class="svg-icon svg-icon-primary svg-icon-4x">
-																	<div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
-                                                                        <a class="fancybox" href="{{ storageImage(${$item}->image) }}">
-                                                                            <div class="symbol symbol-50 symbol-lg-120">
-																			    <img onerror="this.src='{{asset('web/images/no-image.jpg')}}';"  alt="Image" src="{{ storageImage(${$item}->image) }}">
-                                                                            </div>
-                                                                        </a>
-																	</div>
-																</span>
-															</div>
-															<!--end::Icon-->
-														</div>
-													</div>
+												    @if(!is_null(${$item}->image))
+    													<h5>{{ __('category.image') }}</h5>
+    													<div class="card-body">
+    														<div class="d-flex align-items-center p-5">
+    															<!--begin::Icon-->
+    															<div class="mr-6">
+    																<span class="svg-icon svg-icon-primary svg-icon-4x">
+    																	<div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
+                                                                            <a class="fancybox" href="{{ storageImage(${$item}->image) }}">
+                                                                                <div class="symbol symbol-50 symbol-lg-120">
+    																			    <!--<img onerror="this.src='{{asset('web/images/no-image.jpg')}}';"  alt="Image" src="{{ storageImage(${$item}->image) }}">-->
+    																			    <img alt="Image" src="{{ storageImage(${$item}->image) }}">
+                                                                                </div>
+                                                                            </a>
+    																	</div>
+    																</span>
+    															</div>
+    															<!--end::Icon-->
+    														</div>
+    													</div>
+                                                    @endif
 													@if (${$item}->guide_image)
 													<div class="card-body">
 														<div class="d-flex align-items-center p-5">

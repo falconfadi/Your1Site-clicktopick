@@ -15,56 +15,83 @@
               <div class="col-xl-12">
                 <form action="{{route('admin.addAdminSetting')}}" method="POST">
                   @csrf
-                  <div class="card my-1 p-2">
-                    <div class="card-body d-flex justify-content-around pb-0 pt-4">
-                        <p class="text-lg text-muted w-100 px-1"> Setting Value
-                          <input type="text" name="setting_key" class="form-control" placeholder="Setting Key">
-                        </p>
-                        <p class="text-lg text-muted w-100 px-1">Setting value : 
-                          <input type="text" name="setting_value" class="form-control" placeholder="Setting Value">
-                        </p>                      
+                  <div class="card p-1">
+                    <div class="card-heder m-2 p-2">
+                        <h3 class="text-lg">{{__('front.new')}}</h3>
                     </div>
-                    <button class="btn btn-success btn-sm w-50 mx-auto mt-0 mb-2 px-2" type="submit">
-                      {{__('admin.create')}}
-                    </button>
+                    <div class="card-body d-flex justify-content-around p-2">
+                        <div class="w-50 mx-1">
+                            <label>{{__('front.key')}}</label>
+                            <input type="text" name="setting_key" class="form-control" placeholder="{{__('front.key')}}">
+                        </div>
+                        <div class="w-50 mx-1">
+                            <label>{{__('front.value')}}</label>
+                            <input type="text" name="setting_value" class="form-control" placeholder="{{__('front.value')}}">
+                        </div>                     
+                        <div class="w-25 mx-1">
+                            <label>{{__('admin.create')}}</label>
+                            <br>
+                            <button class="btn btn-success w-100" type="submit">
+                              <i class="fa fa-plus"></i>{{__('admin.create')}}
+                            </button>
+                        </div>
+                    </div>
                   </div>
                 </form>
                 <br>
-                <hr>
-                @forelse ($admin_settings as $setting)
-                    <div class="card my-1 p-2">
-                      <div class="card-body d-flex justify-content-around pb-0 pt-4">
-                          <p class="text-lg  w-100 px-1"> Setting Key :  {{$setting->setting_key}}
-                          </p>
-                          <p class="text-lg  w-100 px-1">Setting value : {{$setting->setting_value}}
-                          </p>                      
-                      </div>
-                      <a href="{{route('admin.deleteAdminSetting',['id'=>$setting->id])}}" 
-                        class="mx-auto mt-0 mb-2 px-2 w-50">
-                        <button class="btn btn-danger btn-sm w-100 ">
-                          {{__('admin.delete')}}
-                        </button>
-                      </a>
+                <div class="card">
+                    <div class="card-heder m-2 p-2">
+                        <h3 class="text-lg">{{__('front.settings')}}</h3>
                     </div>
-                    {{-- <div class="card my-1">
-                      <div class="card-body ">
-                        <div class="d-flex">
-                          <p>Setting key : {{$setting->setting_key}}</p>
-                        </div>
-                        <div class="d-flex">
-                          <p>Setting value : {{$setting->setting_value}}</p>
-                        </div>
-                        <a href="{{route('admin.deleteAdminSetting',['id'=>$setting->id])}}">
-                          <button class="btn btn-danger btn-sm w-50 mx-auto">
-                            {{__('admin.delete')}}
-                          </button>
-                        </a>
-                      </div>
-                      
-                    </div> --}}
-                @empty
-                    <h4 class="alert">There is no setting.</h4>
-                @endforelse
+                    <div class="card-body row d-flex justify-content-around p-1 m-0">
+                        @forelse ($admin_settings as $setting)
+                            <div class="card col-4 col-offset-1 my-2" style=" 
+                                @if(app()->getLocale() == 'ar')
+                                    direction:rtl !important;
+                                    text-align: justify;
+                                @endif "
+                                >
+                                <div class="d-flex justify-content-between pb-0 pt-1">
+                                    <p class="text-lg w-100 px-1 m-0"> 
+                                        {{__('front.key')}} :  {{__('front.'.$setting->setting_key)}}
+                                        <!--{{__('front.key')}} :  {{$setting->setting_key}}-->
+                                        <br>
+                                        {{__('front.value')}} : {{$setting->setting_value}}
+                                    </p>
+                                    <a href="{{route('admin.deleteAdminSetting',['id'=>$setting->id])}}" 
+                                        class="mx-auto">
+                                        <button class="btn btn-danger btn-sm" type="button">
+                                            <i class="fa fa-sm fa-trash p-0"></i>
+                                        </button>
+                                    </a>
+                                    <!--<form method="post" action="" id="setting_{{$setting->id}}_form">-->
+                                    <!--    <lable class="text-lg w-100 px-1 m-0 my-1">-->
+                                    <!--       {{__('front.key')}} :  {{$setting->setting_key}} -->
+                                    <!--    </lable>-->
+                                    <!--    @csrf-->
+                                    <!--    <input name="setting_value" value="{{$setting->setting_value}}" class="form-control my-2">-->
+                                    <!--</form>-->
+                                    <!--<div class="d-flex align-items-center">-->
+                                    <!--    <a href="#" class="mx-auto mt-0 mb-2 px-2">-->
+                                    <!--        <button class="btn btn-success btn-sm" type="submit" form="setting_{{$setting->id}}_form">-->
+                                    <!--            <i class="fa fa-edit p-0"></i>-->
+                                    <!--        </button>-->
+                                    <!--    </a>-->
+                                    <!--    <a href="{{route('admin.deleteAdminSetting',['id'=>$setting->id])}}" -->
+                                    <!--    class="mx-auto mt-0 mb-2 px-2">-->
+                                    <!--        <button class="btn btn-danger btn-sm" type="button">-->
+                                    <!--            <i class="fa fa-trash p-0"></i>-->
+                                    <!--        </button>-->
+                                    <!--    </a>-->
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                        @empty
+                            <h4 class="alert">{{__('front.Nothing found')}}</h4>
+                        @endforelse
+                    </div>
+                </div>
+                
               </div>
           </div>
           <!--end::Row-->

@@ -53,9 +53,9 @@
                                             style="background-image: url({{ storageImage($row->image) }})">
                                         </div>
                                     @else
-                                        <div class="symbol-label"
-                                            style="background-image: url({{asset('web/images/no-image.jpg')}})">
-                                        </div>
+                                    <!--    <div class="symbol-label"-->
+                                    <!--        style="background-image: url({{asset('web/images/no-image.jpg')}})">-->
+                                    <!--    </div>-->
                                     @endif
                                 </div>
                                 <div>
@@ -129,11 +129,13 @@
                                                     <tr>
                                                         <td style="border-bottom: 1px solid #ECF0F3;" class="pl-0 py-8">
                                                             <div class="d-flex align-items-center">
+                                                                @if(!is_null($value->image))
                                                                 <div class="symbol symbol-50 flex-shrink-0 mr-2">
                                                                     <div class="symbol-label"
                                                                         style="background-image: url({{ storageImage($value->image) }})">
                                                                     </div>
                                                                 </div>
+                                                                @endif
                                                                 <div>
                                                                     <a href="#"
                                                                         class="text-dark-75 font-weight-bolder text-hover-primary mb-1 ml-3 font-size-lg">{{ $value->translate()->name }}</a>

@@ -209,18 +209,20 @@ return [
                 [
                     'title' => 'admin.general_settings',
                     'bullet' => 'dot',
-                    'submenu' => [
-                        [
-                            'title' => 'admin.all_settings',
-                            'page' => 'admin.settings.index',
-                            'permission' => 'list settings',
-                        ],
-                        // [
-                        //     'title' => 'admin.new_settings',
-                        //     'page' => 'admin.settings.create',
-                        //     'permission' => 'add settings',
-                        // ]
-                    ]
+                    'page' => 'admin.settings.index',
+                    'permission' => 'list settings',
+                    // 'submenu' => [
+                    //     [
+                    //         'title' => 'admin.all_settings',
+                    //         'page' => 'admin.settings.index',
+                    //         'permission' => 'list settings',
+                    //     ],
+                    //     [
+                    //         'title' => 'admin.new_settings',
+                    //         'page' => 'admin.settings.create',
+                    //         'permission' => 'add settings',
+                    //     ]
+                    // ]
                 ],
                 [
                     'title' => 'currency.currency',

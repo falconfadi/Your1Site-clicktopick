@@ -311,6 +311,14 @@ return [
     'From' => 'From',
     'To' => 'To',
     'Search' => 'Search',
+    'key' => 'Name',
+    'value' => 'Value',
+    'nothing found' => 'Nothing Found',
+    'settings' => 'Settings',
+    'setting' => 'Setting',
+    'site_address' => "Address",
+    'site_phone' => "Phone",
+    'site_email' => "Email",
 
 ];
 
