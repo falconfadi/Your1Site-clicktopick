@@ -26,7 +26,7 @@
     <div class="page-content">
         @if(count($category->subcategories)>0)
             <div class="container">
-                <div class="row grid cols-lg-3 cols-md-2 mb-2" data-grid-options="{
+                <div class="rowx grid cols-lg-3 cols-md-2 mb-2" data-grid-options="{
                         'layoutMode': 'fitRows'
                     }">
                     @foreach($category->subcategories as $item)

@@ -103,7 +103,7 @@
                     </div>
                     
                     
-                    @foreach ($products as $product)
+                    @forelse ($products as $product)
                         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                             <div class="card product-item border-0 mb-4">
                                 <div
@@ -129,7 +129,13 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="card-header border p-0 w-100">
+                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                <h6 class="text-truncate mb-3">No products Yet</h6>
+                            </div>
+                        </div>
+                    @endforelse
                 </div>
                 {{$products->links()}}
             </div>
