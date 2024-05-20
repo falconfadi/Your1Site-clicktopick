@@ -1,4 +1,4 @@
-<div id="kt_quick_actions" class="offcanvas offcanvas-right p-10">
+<div id="kt_quick_actions" class="offcanvas {{ app()->getLocale()=='ar' ? 'offcanvas-left' : 'offcanvas-right' }} p-10">
     <!--begin::Header-->
     <div class="offcanvas-header d-flex align-items-center justify-content-between pb-10">
         <h3 class="font-weight-bold m-0">{{ __('admin.quick_actions') }}

@@ -11,7 +11,7 @@
             </button>
             <!--end::Aside Toggle-->
             <!--begin::Logo-->
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ route('admin.dashboard') }}" class="mx-10">
                 <img onerror="this.src='{{asset('web/images/no-image.jpg')}}';"  alt="Logo" src="{{ asset('custom/logo-icon.png') }}" class="logo-sticky max-h-35px"  loading="lazy"/>
             </a>
             <!--end::Logo-->

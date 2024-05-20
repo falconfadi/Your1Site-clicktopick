@@ -3,7 +3,7 @@
 <x-text :name="'brief'" :locale="$locale" :oldValue="$entity ?? null" :required="true"></x-text>
 
 @if($locale == 'en')
-    <x-select :name="'applies_to'" :locale="''" displayName="id"  :multiple="false" :options="config('banner_applies_options')" :oldValue="isset($entity) ? $entity->applies_to : null" :required="true"></x-select>
+    <x-select :nullable="true" :name="'applies_to'" :locale="app()->getLocale()" displayName="id"  :multiple="false" :options="config('banner_applies_options')" :oldValue="isset($entity) ? $entity->applies_to : null" :required="true"></x-select>
     <div id="applies_to_option">
         @if(isset($entity) && isset($entity->applies_to))
             @php

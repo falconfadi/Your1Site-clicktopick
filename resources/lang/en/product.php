@@ -65,4 +65,6 @@ return [
     'Status' => 'Status',
     'Created at' => 'Created at',
     'Actions' => 'Actions',
+    'capital_price' => 'Capital price',
+    'quantity' => 'Quantity',
 ];

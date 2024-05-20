@@ -8,7 +8,9 @@
         @can('add '.plural($item))
             <div class="card-toolbar">
                 <a href="{{ route('admin.'.plural($item).'.create') }}" class="btn btn-primary font-weight-bolder font-size-sm">
-                    <i class="fas fa-plus-circle"></i>{{ __('admin.new_'.$item) }}</a>
+                    <i class="fas fa-plus-circle"></i>
+                    {{ __('admin.new_'.$item) }}
+                </a>
             </div>
         @endcan
     </div>
@@ -19,7 +21,7 @@
             <table class="table table-checkable table-head-custom table-head-bg table-borderless table-vertical-center">
                 <thead>
                     <tr class="text-uppercase">
-                        <th style="min-width: 150px" class="pl-7">
+                        <th style="min-width: 150px" class="{{app()->getLocale() == 'ar' ? 'text-right':'pl-7'}}">
                             <span class="text-dark-75">{{ __('admin.'.plural($item)) }}</span>
                         </th>
                         <th class="text-center" style="min-width: 150px">{{ __('admin.type') }}</th>

@@ -8,7 +8,9 @@
         @can('add '.plural($item))
             <div class="card-toolbar">
                 <a href="{{ route('admin.'.plural($item).'.create') }}" class="btn btn-primary font-weight-bolder font-size-sm">
-                    <i class="fas fa-plus-circle"></i>{{ __('admin.new_'.$item) }}</a>
+                    <i class="fas fa-plus-circle"></i>
+                    {{ __('admin.new_'.$item) }}
+                </a>
             </div>
         @endcan
     </div>

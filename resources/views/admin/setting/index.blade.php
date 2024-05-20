@@ -17,9 +17,9 @@
                   @csrf
                   <div class="card p-1">
                     <div class="card-heder m-2 p-2">
-                        <h3 class="text-lg">{{__('front.new')}}</h3>
+                        <h3 class="text-lg {{app()->getLocale() == 'ar' ? 'text-right' : 'text-left'}}">{{__('front.new')}}</h3>
                     </div>
-                    <div class="card-body d-flex justify-content-around p-2">
+                    <div class="card-body d-flex justify-content-around p-2 {{app()->getLocale() == 'ar' ? 'text-right' : 'text-left'}}">
                         <div class="w-50 mx-1">
                             <label>{{__('front.key')}}</label>
                             <input type="text" name="setting_key" class="form-control" placeholder="{{__('front.key')}}">
@@ -32,7 +32,8 @@
                             <label>{{__('admin.create')}}</label>
                             <br>
                             <button class="btn btn-success w-100" type="submit">
-                              <i class="fa fa-plus"></i>{{__('admin.create')}}
+                              <i class="fa fa-plus"></i> 
+                              {{__('admin.create')}}
                             </button>
                         </div>
                     </div>
@@ -41,11 +42,11 @@
                 <br>
                 <div class="card">
                     <div class="card-heder m-2 p-2">
-                        <h3 class="text-lg">{{__('front.settings')}}</h3>
+                        <h3 class="text-lg {{app()->getLocale() == 'ar' ? 'text-right' : 'text-left'}}">{{__('front.settings')}}</h3>
                     </div>
                     <div class="card-body row d-flex justify-content-around p-1 m-0">
                         @forelse ($admin_settings as $setting)
-                            <div class="card col-4 col-offset-1 my-2" style=" 
+                            <div class="card col-3 col-offset-1 my-2" style=" 
                                 @if(app()->getLocale() == 'ar')
                                     direction:rtl !important;
                                     text-align: justify;

@@ -1,9 +1,9 @@
 <div class="card card-custom shadow-lg mt-10">
     <!--begin::Form-->
-    <form action="{{ $action ?? '#' }}" method="POST" id="sheen_value_form" enctype="multipart/form-data" @if (session()->get('lang') == 'ar' or app()->getLocale() == 'ar')
-        dir="ltr"
-        @endif
-        >
+    <form action="{{ $action ?? '#' }}" 
+    method="POST" id="sheen_value_form" 
+    enctype="multipart/form-data" 
+    dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr'}}">
         @csrf
         <div class="card-body">
             <ul class="nav nav-tabs float-right" id="myTab" role="tablist">

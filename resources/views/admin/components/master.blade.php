@@ -9,8 +9,7 @@
 <!--end::Head-->
 <!--begin::Body-->
 
-<body id="kt_body" @if (session()->get('lang') == 'ar' or app()->getLocale() == 'ar')
-    direction="rtl" @endif
+<body id="kt_body" direction="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}"
     class="quick-panel-right demo-panel-right offcanvas-right header-fixed header-mobile-fixed aside-enabled aside-static page-loading">
 
     <!--begin::Main-->

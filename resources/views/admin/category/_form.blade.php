@@ -4,7 +4,8 @@
     @if($locale == 'en')
         <!--<x-text :name="'icon'" :locale="''" :oldValue="$entity ?? null" :required="true"></x-text>-->
         <x-number :name="'sort_order'" :oldValue="$entity ?? null" :required="true"></x-number>
-        <x-select :nullable="true" displayName="name" :name="'parent_category'" :options="getParentsCategories($entity->id ?? null)" :oldValue="$entity->category ?? null" ></x-select>
+        <x-select :nullable="true" displayName="name" :name="'parent_category'" :locale="app()->getLocale()"
+        :options="getParentsCategories($entity->id ?? null)" :oldValue="$entity->category ?? null" ></x-select>
         <x-radio :name="'is_active'" :choices="getStatusVariables()" :oldValue="$entity ?? null"></x-radio>
         <x-select-ajax-data :displayName="'name'" :name="'attributes'" url="{{route('admin.attributesAutoComplete')}}" :multiple="true" :oldValues="isset($entity) ? $entity->attributes : []"></x-select-ajax-data>
         <div class="row col-md-12">

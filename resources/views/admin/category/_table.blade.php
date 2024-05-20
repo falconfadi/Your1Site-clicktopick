@@ -10,7 +10,9 @@
                 <div class="col-lg-6 mt-5 mt-lg-0">
                 <a style="white-space: nowrap;" href="{{ route('admin.'.plural($item).'.create') }}"
                     class="btn btn-primary font-weight-bolder font-size-sm">
-                    <i class="fas fa-plus-circle"></i>{{ __('admin.new_'.$item) }}</a>
+                    <i class="fas fa-plus-circle"></i>
+                    {{ __('admin.new_'.$item) }}
+                </a>
                 </div>
             @endcan
             <div class="col-lg-6 mt-5 mt-lg-0">
@@ -44,7 +46,7 @@
                         <td class="pl-0 py-8">
                             <div class="d-flex align-items-center">
                                 <div class="symbol symbol-50 flex-shrink-0 mr-2">
-                                    <i class="fa fa-caret-right" id="show_{{$row->id}}" style="color: #F64E60;padding-right: 5px;font-size: 1.6rem;">
+                                    <i class="fa fa-caret-down" id="show_{{$row->id}}" style="color: #F64E60;padding-right: 5px;font-size: 1.6rem;">
                                     </i>
                                 </div>
                                 <div class="symbol symbol-50 flex-shrink-0 mr-2">
@@ -116,7 +118,7 @@
                                         <table class="table">
                                             <thead>
                                                 <tr class="text-uppercase">
-                                                    <th class="pl-7">
+                                                    <th class="{{app()->getLocale() == 'ar' ? 'text-right':'pl-7'}}">
                                                         <span class="text-dark-75">{{ __('admin.sub_categories') }}</span>
                                                     </th>
                                                     <th>{{ __('admin.sort_order') }}</th>
@@ -138,7 +140,7 @@
                                                                 @endif
                                                                 <div>
                                                                     <a href="#"
-                                                                        class="text-dark-75 font-weight-bolder text-hover-primary mb-1 ml-3 font-size-lg">{{ $value->translate()->name }}</a>
+                                                                        class="text-dark-75 font-weight-bolder text-hover-primary mb-1 mx-2 font-size-lg">{{ $value->translate()->name }}</a>
                                                                 </div>
                                                             </div>
                                                         </td>

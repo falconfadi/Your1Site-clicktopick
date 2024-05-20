@@ -13,7 +13,8 @@
 		<div class="card-toolbar">
 			<a href="{{ route('admin.'.plural($item).'.create') }}"
                 class="btn btn-primary font-weight-bolder font-size-sm">
-				<i class="fas fa-plus-circle"></i>{{ __('admin.new_'.$item) }}
+				<i class="fas fa-plus-circle"></i> 
+				{{ __('admin.new_'.$item) }}
 			</a>
 		</div>
         @endcan
@@ -25,7 +26,7 @@
 		<div class="">
             @include('admin.'.$item.'._gridFilter')
             <div class="datatable datatable-bordered datatable-head-custom"
-                 id="kt_datatable" data-locale="en" data-url="{{ route('admin.datatables.getProducts') }}">
+                 id="kt_datatable" data-locale="{{app()->getLocale()}}" data-url="{{ route('admin.datatables.getProducts') }}">
             </div>
 		</div>
 		<!--end::Table-->

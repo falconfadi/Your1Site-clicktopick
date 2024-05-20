@@ -12,8 +12,12 @@
         <!--begin::Table-->
         <table class="table table-checkable table-head-custom table-head-bg table-borderless table-vertical-center">
             @include('admin.'.$item.'._gridStatusFilter')
-            <div class="datatable datatable-bordered datatable-head-custom" data-status="{{$status}}" id="kt_datatable" data-locale="{{getCurrentLanguageSymbol()}}" data-url="{{ route('admin.orders.byStatus', ['status' => $status]) }}"></div>
+            <div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable" 
+            data-status="{{$status}}" 
+            data-locale="{{app()->getLocale()}}" 
+            data-url="{{ route('admin.orders.byStatus', ['status' => $status]) }}"></div>
         </table>
+        <!-- data-locale="{{getCurrentLanguageSymbol()}}" -->
         <!--end::Table-->
     </div>
     <!--end::Body-->

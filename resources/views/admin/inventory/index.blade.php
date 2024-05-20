@@ -3,9 +3,12 @@
     <div class="d-flex flex-column-fluid">
         <div class="container">
             <div class="row">
-                <div class="col-xl-12">
+                <div class="col-xl-12 mt-5">
                     {{-- @include('admin.'.$item.'._table') --}}
                     <div class="card">
+                        <div class="card-header">
+                            <h4 class="{{app()->getLocale() == 'ar' ? 'text-right' : 'text-left'}}">{{ __('admin.Inventory') }}</h4>
+                        </div>
                         <div class="card-body pt-0 pb-3">
                     		<table class="table table-sm">
                     		    <thead class="p-1">
@@ -24,27 +27,29 @@
                         		        <tr>
                         		            <th>{{$item->id}}</th>
                         		            <th>{{$item->product_id}}</th>
-                        		            <th>{{$item->product->name}}</th>
+                        		            <th>{{$item->product->name ?? ''}}</th>
                         		            <th>{{$item->quantity}}</th>
                         		            <th>{{$item->status}}</th>
                         		            <th>{{$item->created_at}}</th>
                         		            <th>
-                        		                <div class="dropdown dropdown-inline">
-                                                    <span class="btn btn-sm btn-clean btn-icon" title="Show" onclick="
-                                                        let input = document.getElementById('quantity_item_{{$item->id}}');
-                                                        if(input.style.display == 'none'){
-                                                            input.style.display = 'contents';
-                                                        }else{
-                                                            input.style.display = 'none';
-                                                        }
-                                                        console.log(input);
-                                                    ">
-                                                        <i class="fas fa-plus-circle"></i>
-                                                    </span>
-                                                    <span class="btn btn-sm btn-clean btn-icon">
+                        		                <div class="d-flex {{app()->getLocale() == 'ar' ? 'justify-content-end' : 'justify-content-start'}} align-items-center">
+                                                    <div>
+                                                        <span class="btn btn-sm btn-clean btn-icon btn-hover-success" title="Show" onclick="
+                                                            let input = document.getElementById('quantity_item_{{$item->id}}');
+                                                            if(input.style.display == 'none'){
+                                                                input.style.display = 'contents';
+                                                            }else{
+                                                                input.style.display = 'none';
+                                                            }
+                                                            console.log(input);
+                                                        ">
+                                                            <i class="fas fa-plus-circle"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div>
                                                         <form method="post" action="{{route('admin.deleteInventoryItem',['id'=>$item->id])}}">
                                                             @csrf
-                                                            <button class="btn btn-icon btn-light btn-hover-primary btn-sm mx-2">
+                                                            <button class="btn btn-sm btn-clean btn-icon btn-hover-primary mx-2">
                                                                 <span class="svg-icon svg-icon-md svg-icon-primary">
                                                                     <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                                         <g id="Stockholm-icons-/-General-/-Trash" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -56,7 +61,7 @@
                                                                 </span>
                                                             </button>
                                                         </form>
-                                                    </span>
+                                                    </div>
                                                 </div>
                         		            </th>
                         		        </tr>

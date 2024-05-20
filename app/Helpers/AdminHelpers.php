@@ -166,8 +166,7 @@ function getParentsCategories($id = null)
 
 function getSubCategories()
 {
-    $categories = Category::whereNotNull('parent_category');
-    return $categories->get();
+    return Category::whereNotNull('parent_category')->get();
 }
 
 function setting($key, $type)

@@ -12,7 +12,7 @@
         <!--begin::Table-->
         <table class="table table-checkable table-head-custom table-head-bg table-borderless table-vertical-center">
             @include('admin.'.$item.'._gridFilter')
-            <div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable" data-locale="en" data-url="{{ route('admin.orders.getOrders') }}"></div>
+            <div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable" data-locale="{{app()->getLocale()}}" data-url="{{ route('admin.orders.getOrders') }}"></div>
         </table>
         <!--end::Table-->
     </div>

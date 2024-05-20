@@ -13,12 +13,22 @@
             <option value="0" {{!$oldValue ? 'selected' : ''}}>{{ __('admin.empty') }}</option>
             @foreach($options as $option)
             @php $option = json_decode(json_encode($option)) @endphp
-            <option {{  $oldValue ? (is_object($oldValue) ? ($option->id == $oldValue->id  ? 'selected' : '') : ($option->id == $oldValue ? 'selected' : '')) : (old($name) == $option->id ? 'selected' : '') }} value="{{ $option->id }}">{{ method_exists($option, 'translate') && $option->translate($locale) ? ($option->translate($locale)->$displayName != '' ? $option->translate($locale)->$displayName : $option->$displayName) : $option->$displayName }}</option>
+            <option {{  $oldValue ? (is_object($oldValue) ? 
+            ($option->id == $oldValue->id  ? 'selected' : '') : 
+            ($option->id == $oldValue ? 'selected' : '')) : (old($name) == $option->id ? 'selected' : '') }} value="{{ $option->id }}">
+            {{ method_exists($option, 'translate') && $option->translate($locale) ? 
+            ($option->translate($locale)->$displayName != '' ? $option->translate($locale)->$displayName : $option->$displayName) : $option->$displayName }}
+            </option>
             @endforeach
             @else
             @foreach($options as $option)
             @php $option = json_decode(json_encode($option)) @endphp
-            <option {{ $oldValues ? ( in_array($option->id, $oldValues) ? 'selected' : '') : '' }} value="{{ $option->id }}">{{ method_exists($option, 'translate') && $option->translate($locale) ? ($option->translate($locale)->$displayName ?? $option->$displayName ) : $option->$displayName }}</option>
+            <option {{ $oldValues ? ( in_array($option->id, $oldValues) ? 'selected' : '') : '' }} 
+            value="{{ $option->id }}">
+                {{ method_exists($option, 'translate') && $option->translate($locale) ? 
+                ($option->translate($locale)->$displayName ?? $option->$displayName ) : 
+                $option->$displayName }}
+            </option>
             @endforeach
             @endif
         </select>

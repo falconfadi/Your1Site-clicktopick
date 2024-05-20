@@ -1,4 +1,4 @@
-<div id="kt_quick_notifications" class="offcanvas offcanvas-right p-10">
+<div id="kt_quick_notifications" class="offcanvas {{ app()->getLocale()=='ar' ? 'offcanvas-left' : 'offcanvas-right' }} p-10">
     <!--begin::Header-->
     <div class="offcanvas-header d-flex align-items-center justify-content-between mb-10">
         <h3 class="font-weight-bold m-0">Notifications

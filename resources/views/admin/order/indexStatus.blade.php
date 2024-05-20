@@ -11,7 +11,7 @@
         <!--begin::Row-->
         <div class="row">
             <div class="col-xl-12">
-                <h1 class="mt-10" >{{ __('admin.all_'.plural($item)) }}</h1>
+                <h1 class="mt-10 {{app()->getLocale() == 'ar'? 'text-right' : 'text-left'}}" >{{ __('admin.all_'.plural($item)) }}</h1>
 
                 @include('admin.layouts.panels._alerts')
 

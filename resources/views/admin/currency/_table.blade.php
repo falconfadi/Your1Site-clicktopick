@@ -8,11 +8,13 @@
         <div class="card-toolbar">
             @can('add '.plural($item))
                 <a style="margin: 6px;" href="{{ route('admin.'.plural($item).'.create') }}" class="btn btn-primary font-weight-bolder font-size-sm">
-                    <i class="fas fa-plus-circle"></i>{{ __('currency.new_'.$item) }}
+                    <i class="fas fa-plus-circle"></i>
+                    {{ __('currency.new_'.$item) }}
                 </a>
             @endcan
             <a style="margin: 6px;" href="{{ route('admin.'.plural($item).'.index', ['request_rates' => true]) }}" class="btn btn-primary font-weight-bolder font-size-sm">
-                <i class="fas fa-dollar-sign icon-nm"></i>{{ __('admin.request_rates') }}
+                <i class="fas fa-dollar-sign "></i>
+                {{ __('admin.request_rates') }}
             </a>
         </div>
     </div>

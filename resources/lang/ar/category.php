@@ -16,7 +16,7 @@ return [
     'image' => 'صورة',
     'images' => 'الصور',
     'guide_image' => 'صورة الدليل',
-    'view_tree'=> 'مشاهدة ملف Tree',
+    'view_tree'=> 'مشاهدة شجرة الملف',
     'parent_category' => 'القسم الرئيسي',
     'View_categories_tree' => 'عرض شجرة الفئات',
     'close' => 'إغلاق',

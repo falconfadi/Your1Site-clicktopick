@@ -6,7 +6,7 @@ return [
     'banner_deleted_successfully' => 'تم حذف بانر جديدة بنجاح',
     'title' => 'عنوان',
     'brief' => 'ملخص',
-    'applies_to' => 'مخصصة ﻷ',
+    'applies_to' => 'تطبق على',
     'sort_order' => 'الترتيب',
     'image' => 'الصورة',
     'products' => 'المنتج',

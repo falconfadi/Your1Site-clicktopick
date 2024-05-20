@@ -1,8 +1,8 @@
 <div class="form-group row">
-    <label class="col-xl-2 col-lg-2 col-form-label text-center @if($required) required @endif">
+    <label class="col-md-6 col-form-label @if($required) required @endif">
         {{ isset($item) ? __($item.'.'.$name) : __('admin.'.$name) }}
     </label>
-    <div class="col-lg-4 col-md-11 col-sm-12">
+    <div class="col-md-12 col-sm-12">
         <div class="">
             @if($multiple)
             <input type="file" data-container="body" title="Multiple Images" data-toggle="popover" data-placement="right" data-content="{{ __('admin.u_can_upload_multiple_files') }}" name="{{ $name }}[]" multiple class="dropify" @if($required) required @endif data-default-file="{{ $oldValue && $oldValue->{$name} ? storageImage($oldValue->{$name}[0]) : '' }}">

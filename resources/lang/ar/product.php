@@ -72,5 +72,7 @@ return [
     'Status' => 'الحالة',
     'Created at' => 'تاريخ الانشاء',
     'Actions' => 'الاجراءات',
+    'capital_price' => 'سعر الشراء',
+    'quantity' => 'الكمية',
 
 ];

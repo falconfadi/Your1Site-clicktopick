@@ -5,7 +5,10 @@
     </label>
     @endif
     <div class="col-lg-9 col-xl-9">
-        <select class="form-control form-control-lg form-control-solid ajax-auto-complete @error($name) is-invalid @enderror" id="{{ $name }}" name="{{ $name }}{{$multiple?'[]':''}}" url="{{ $url }}" data-placeholder="{{ __($item.'.'.$name) }}" {{ $multiple ? 'multiple="multiple"' : '' }} {{ $required ? 'required' : '' }} dir="{{ $locale=='ar' ? 'rtl' : '' }}" style="width: 100% !important; opacity: 1 !important;">
+        <select class="form-control form-control-lg form-control-solid ajax-auto-complete @error($name) is-invalid @enderror" 
+        id="{{ $name }}" name="{{ $name }}{{$multiple?'[]':''}}" url="{{ $url }}" 
+        data-placeholder="{{ __($item.'.'.$name) }}" {{ $multiple ? 'multiple="multiple"' : '' }} {{ $required ? 'required' : '' }} 
+        dir="{{ $locale=='ar' ? 'rtl' : '' }}" style="width: 100% !important; opacity: 1 !important;">
             @if($all == true)
             <option {{ $oldValue ? '' : 'selected' }} value="0"> {{ __('admin.all_'.plural($name)) }}</option>
             @endif

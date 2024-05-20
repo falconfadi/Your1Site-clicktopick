@@ -4,7 +4,10 @@
 
     @if($locale == 'en')
         <x-number :name="'sort_order'" :oldValue="$entity ?? null" :required="true"></x-number>
-        <x-select-ajax-data :name="'product_id'" url="{{route('admin.productsAutoComplete')}}" :displayName="'name'" :oldValue="isset($entity) ? $entity->product : null"></x-select-ajax-data>
+        <x-select-ajax-data :name="'product_id'" url="{{route('admin.productsAutoComplete')}}" 
+        :locale="app()->getLocale()" 
+        :displayName="'name'" 
+        :oldValue="isset($entity) ? $entity->product : null"></x-select-ajax-data>
         <div class="row col-md-12">
             <div style="padding-left: 120px;" class="col-md-6">
                 <x-image :name="'background_image'" :oldValue="$entity ?? null" :required="true"></x-image>
