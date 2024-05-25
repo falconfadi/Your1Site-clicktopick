@@ -13,7 +13,7 @@
                 <div class="card-body p-0">
                     <!-- begin: Invoice-->
                     <!-- begin: Invoice header-->
-                    <div class="row justify-content-center py-8 px-8 py-md-27 px-md-0">
+                    <div class="row justify-content-center py-8 px-8 py-md-27 px-md-0 {{app()->getLocale() == 'ar' ? 'text-right' : '' }}">
                         <div class="col-md-11">
                             <div class="d-flex justify-content-between pb-5 pb-md-10 flex-column flex-md-row">
                                 <h1 class="display-4 font-weight-boldest mb-10">{{ $product->name }}
@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                             <div class="border-bottom w-100"></div>
-                            <div class="d-flex justify-content-between pt-6">
+                            <div class="d-flex justify-content-between pt-6 ">
                                 <div class="d-flex flex-column flex-root">
                                     <span class="font-weight-bolder mb-2">{{ __('product.sku') }}</span>
                                     <span class="opacity-70">{{ $product->sku }}</span>
@@ -68,7 +68,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between pt-6">
+                            <div class="d-flex justify-content-between pt-6 ">
                                 <div class="d-flex flex-column flex-root">
                                     <span class="font-weight-bolder mb-2">{{ __('product.price') }}</span>
                                     <span class="text-danger font-weight-boldest">{{ $product->price }}</span>
@@ -89,7 +89,7 @@
                             <div class="d-flex flex-column align-items-md-start px-0">
                                 <span class="font-weight-bolder mb-2">{{__('product.Ranges')}}</span>
                             </div>
-                            <div class="d-flex justify-content-between pt-6">
+                            <div class="d-flex justify-content-between pt-6 ">
                                 @forelse($product->ranges as $range)
                                     <div class="d-flex flex-column flex-root">
                                         <span class="font-weight-bolder mb-2">
@@ -125,7 +125,7 @@
                                         </form>
                                     </div>
                                 @empty
-                                    <p>No Ranges</p>
+                                    <p>{{__('nothing')}}</p>
                                 @endforelse
                             </div>
                             <form method="post" action="{{route('admin.productPriceRanges',['product'=>$product->id])}}">

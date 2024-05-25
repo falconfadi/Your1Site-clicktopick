@@ -45,14 +45,17 @@
             </div>
             <div class="row px-xl-5 pb-3">
                 @foreach ($subCategories as $sub)
-                    @if ($sub->product_count > 0)
+                    @if($sub->product_count > 0)
                         <div class="col-lg-3 col-md-6 pb-1">
                             <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                                <p class="text-right">{{ $sub->product_count . ' ' . __('front.products') }} </p>
                                 <a href="{{ route('user.products.index', ['category' => $sub->id]) }}"
                                     class="cat-img position-relative overflow-hidden mb-3">
-                                    <img class="img-fluid w-100 " src="{{ asset($sub->image) }}" style="height: 220px"
-                                        alt="">
+                                    <p class="text-right">{{ $sub->product_count . ' ' . __('front.products') }} </p>
+                                    @if(!is_null($sub->image))
+                                        <img class="img-fluid w-100 " src="{{ asset($sub->image) }}" 
+                                            style="height: 220px" alt=""
+                                            onerror="this.src='{{storageImage($sub->image)}}'">
+                                    @endif
                                 </a>
                                 <h5 class="font-weight-semi-bold m-0">{{ $sub->name }}</h5>
                             </div>
