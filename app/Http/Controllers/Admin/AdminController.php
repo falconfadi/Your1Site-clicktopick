@@ -13,6 +13,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class AdminController extends Controller
@@ -167,6 +169,24 @@ class AdminController extends Controller
         $item->save();
 
         return "Edit Status Successfully";
+    }
+    
+    public function changePasswordForm(){
+        return view('admin.admin.changePassword');
+    }
+    
+    public function changePassword(Request $request){
+        $request->validate([
+            'old_password'=>['required','string','min:8'],
+            'password'=>['required','string','min:8','confirmed'],
+        ]);
+        
+        if(!Hash::check($request->old_password,auth()->user()->password) ){
+            return back()->with('error', __('admin.passwordInvalid'));
+        }
+        
+        auth()->user()->update(['password' => Hash::make($request->password) ]);
+        return back()->with('success', __('admin.passwordChanged'));
     }
 
 }

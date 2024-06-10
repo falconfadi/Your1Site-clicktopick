@@ -13,8 +13,8 @@
     <!--begin::Content-->
     <div class="offcanvas-content pr-5 mr-n5">
         <!--begin::Header-->
-        <div class="d-flex align-items-center mt-2">
-            <div class="symbol symbol-100 mr-5">
+        <div class="d-flex align-items-center mt-1">
+            <div class="symbol symbol-100 mr-3">
                 {{-- <div class="symbol-label" style="background-image: url({{ $admin->avatar ? storageImage($admin->avatar) : asset('media/users/blank.png') }})"></div> --}}
                 <div class="symbol-label" style="background-image: url({{ $admin->avatar ? 
                     // asset('storage/'.$admin->avatar) 
@@ -23,23 +23,30 @@
                 
                 <i class="symbol-badge bg-success"></i>
             </div>
-            <div class="d-flex flex-column w-100">
-                <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ $admin->name }}</a>
-                <div class="text-muted mt-1">{{ $admin->username }}</div>
-                <div class="navi mt-1">
+            <div class="d-flex flex-column w-100 {{app()->getLocale() == 'ar' ? 'text-right mx-2' : '' }}">
+                <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
+                    {{ $admin->name }} 
+                    <small class="text-muted">{{ '@'.$admin->username }}</small>
+                </a>
+                <!--<div class="text-muted mt-1">{{ $admin->username }}</div>-->
+                <div class="navi">
+                    <a href="{{route('admin.changePasswordForm')}}" class="my-1">{{__('admin.changePassword')}}</a>
                     <a href="#" class="navi-item">
-                        <span class="navi-link p-0 pb-2">
-                            <span class="navi-icon mr-1">
-                                <span class="svg-icon svg-icon-lg svg-icon-primary">
-                                        {{ getSVG("assets/media/svg/icons/Communication/Mail-notification.svg", "svg-icon-lg") }}
+                        <span class="navi-link p-0">
+                            <span class="navi-icon">
+                                <span class="svg-icon svg-icon-md svg-icon-primary m-0 p-0">
+                                        {{ getSVG("assets/media/svg/icons/Communication/Mail-notification.svg", "svg-icon-md") }}
                                 </span>
                             </span>
                             <span class="navi-text text-muted text-hover-primary">{{ $admin->email }}</span>
                         </span>
                     </a>
-                    <form action="{{ route('logout') }}" method="post">
+                    <button form="adminLogoutForm" class="btn btn-sm btn-light-primary font-weight-bolder w-100 py-2 px-5 mt-1">
+                        {{ __('admin.logout') }}
+                    </button>
+                    <form id="adminLogoutForm" action="{{ route('logout') }}" method="post">
                         @csrf
-                        <input type="submit" value="{{ __('admin.logout') }}" class="btn btn-sm btn-light-primary font-weight-bolder w-100 py-2 px-5">
+                        <!--<input type="submit" value="{{ __('admin.logout') }}" class="btn btn-sm btn-light-primary font-weight-bolder w-100 py-2 px-5">-->
                     </form>
                 </div>
             </div>

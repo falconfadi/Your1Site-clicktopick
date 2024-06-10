@@ -287,4 +287,9 @@ return [
     'footerAddress' => 'Footer Address',
     'Inventory' => 'Inventory',
     'Inventories' => 'Inventories',
+    'changePassword' => 'Change Password',
+    'oldPassword' => 'Old Password',
+    'password_confirm' => 'Confirm Password',
+    'passwordInvalid' => 'Old Password is invalid',
+    'passwordChanged' => 'Password Changed',
 ];
