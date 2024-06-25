@@ -22,7 +22,7 @@ class Currency
         } else if (request('appcurrency')) {
             $currency = request('appcurrency');
         } else {
-            $currency = getMainCurrency()->code;
+            $currency = getMainCurrency()?->code ?? 'USD';
         }
 
         if ($request->hasHeader('Accept-Currency')) {

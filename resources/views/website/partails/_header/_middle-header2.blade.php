@@ -1,87 +1,9 @@
-{{--<div class="container">--}}
-{{--    <div class="header-left ">--}}
-{{--        <a href="#" class="mobile-menu-toggle  w-icon-hamburger">--}}
-{{--        </a>--}}
-{{--        <a href="{{route('user.index')}}" class="logo ">--}}
-{{--            <img src="{{asset('web/images/new/logo.png')}}" alt="logo" />--}}
-{{--        </a>--}}
-{{--    </div>--}}
-{{--    <a href=""></a>--}}
-{{--    <div class="header-right middle">--}}
-{{--        <nav class="main-nav d-none d-lg-flex mx-auto ">--}}
-{{--            <ul class="menu">--}}
-{{--                <li class="{{request()->is('/')?'active':''}}">--}}
-{{--                    <a href="{{route('user.index')}}">{{__('front.home')}}</a>--}}
-{{--                </li>--}}
-{{--                <li class="{{request()->routeIs('user.products.*')?'active':''}}">--}}
-{{--                    <a href="{{route('user.products.index')}}">{{__('front.shop')}}</a>--}}
-{{--                </li>--}}
-{{--                <li class="{{request()->routeIs('user.about')?'active':''}}">--}}
-{{--                    <a href="{{route('user.about')}}">{{__('front.about')}}</a>--}}
-{{--                </li>--}}
-{{--                <li class="{{request()->routeIs('user.contact')?'active':''}}">--}}
-{{--                    <a href="{{route('user.contact')}}"> {{__('front.contact')}}</a>--}}
-{{--                </li>--}}
-{{--            </ul>--}}
-{{--        </nav>--}}
-
-
-
-{{--         --}}{{-- test slide checkout --}}
-
-{{--         <div class="dropdown cart-dropdown cart-offcanvas hidden-cart mr-0 mr-lg-2" id="trigger-cart-items">--}}
-{{--            <div class="cart-overlay"></div>--}}
-{{--              @auth('user')--}}
-{{--            <a href="#" class="cart-toggle label-down link">--}}
-{{--                <i class="w-icon-cart">--}}
-
-{{--                    <span class="cart-count">{{getCountCartItems()}}</span>--}}
-
-{{--                </i>--}}
-{{--            </a>--}}
-{{--             @endauth--}}
-{{--            <div class="dropdown-box">--}}
-{{--                <div class="cart-header">--}}
-{{--                    <span>{{__('front.shopping')}}</span>--}}
-{{--                    <a href="#" class="btn-close"><i class="w-icon-long-arrow-right"></i></a>--}}
-{{--                </div>--}}
-
-{{--                <div class="products " style="max-height: none !important;" id="cart-items">--}}
-
-{{--                </div>--}}
-
-{{--                <div class="cart-total" id="cart-subtotal">--}}
-
-{{--                </div>--}}
-
-{{--                <div class="cart-action">--}}
-{{--                    <a href="{{route('cart')}}" class="btn btn-dark btn-outline btn-rounded"> {{__("front.view_cart")}}</a>--}}
-{{--                    <a href="{{route("checkout")}}" class="btn btn-primary  btn-rounded">{{__("front.checkout")}}</a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-
-
-{{--            <!-- End of Dropdown Box -->--}}
-{{--        <div class="header-call d-xs-show d-lg-flex align-items-center">--}}
-{{--            <a href="#" class="w-icon-call"></a>--}}
-{{--            <div class="call-info d-xl-show">--}}
-{{--                <h4 class="chat font-weight-normal font-size-md text-normal ls-normal text-light mb-0">--}}
-{{--                    <a href="#" class="text-capitalize">{{__('front.Live_Chat')}}</a>:--}}
-{{--                </h4>--}}
-{{--                <a href="#" class="phone-number font-weight-bolder ls-50">{{setting('site-mobile' , 'text')}}</a>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-
-{{--</div>--}}
-
 <!-- Navbar Start -->
 <div class="container-fluid">
     <div class="row border-top px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
-            <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
+            <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" 
+            data-toggle="collapse" href="#navbar-vertical" style="height: 50px; margin-top: -1px; padding: 0 30px;">
                 <h6 class="m-0">{{__('front.categories')}}</h6>
                 <i class="fa fa-angle-down text-dark"></i>
             </a>

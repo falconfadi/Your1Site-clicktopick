@@ -42,7 +42,7 @@ class ProductController extends Controller
     }
     public function getProductsByMainCategory($slug)
     {
-        $category = Category::query()->where('slug',$slug)->first();
+        $category = Category::query()->where('slug',$slug)->firstOrFail();
         return view('website.pages.category.sub-category', compact('category'));
     }
 
@@ -66,7 +66,7 @@ class ProductController extends Controller
 
     public function getProductDetails($product): JsonResponse
     {
-        $product = Product::query()->find($product);
+        $product = Product::query()->findOrFail($product);
         $images = array();
         array_push($images, storageImage($product->featured_image));
         foreach ($product->images as $image) {
@@ -88,7 +88,6 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-       
         $listProduct = Product::query()->active()->inRandomOrder()->take(6)->get();
         return view('website.pages.product.show', compact('product', 'listProduct'));
     }

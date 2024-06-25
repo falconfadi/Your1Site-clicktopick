@@ -31,7 +31,7 @@
                         <span class="text-dark-75">{{ __('currency.'.plural($item)) }}</span>
                     </th>
                     <th class="text-center" style="min-width: 100px">{{ __('currency.rate') }}</th>
-                    <th class="text-center" style="min-width: 100px">{{ __('currency.exchangeRate') }}</th>
+                    <!--<th class="text-center" style="min-width: 100px">{{ __('currency.exchangeRate') }}</th>-->
                     <th class="text-center" style="min-width: 100px">{{ __('currency.code') }}</th>
                     <th class="text-center" style="min-width: 100px">{{ __('currency.symbol') }}</th>
                     <th class="text-center" style="min-width: 100px">{{ __('currency.isActive') }}</th>
@@ -55,9 +55,9 @@
                         <td>
                             <span class="{{ $row->use_api_rate == 1 ? 'text-dark-75' : 'text-success'}} text-center font-weight-bolder d-block font-size-lg">{{ $row->rate }}</span>
                         </td>
-                        <td>
-                            <span class="{{ $row->use_api_rate == 1 ? 'text-success' : 'text-dark-75'}} text-center font-weight-bolder d-block font-size-lg">{{ $row->exchange_rate }}</span>
-                        </td>
+                        <!--<td>-->
+                        <!--    <span class="{{ $row->use_api_rate == 1 ? 'text-success' : 'text-dark-75'}} text-center font-weight-bolder d-block font-size-lg">{{ $row->exchange_rate }}</span>-->
+                        <!--</td>-->
                         <td>
                             <span class="text-center text-dark-75 font-weight-bolder d-block font-size-lg">{{ $row->code }}</span>
                         </td>

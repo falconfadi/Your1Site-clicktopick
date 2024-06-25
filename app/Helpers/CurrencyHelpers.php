@@ -4,7 +4,11 @@ use Illuminate\Support\Facades\Session;
 
 function getMainCurrency()
 {
-    return Currency::whereRate(1)->first();
+    // return Currency::whereRate(1)->first();
+    return Currency::where('code','USD')
+        ->orWhere('symbol','$')
+        ->orWhere('rate',1)
+        ->first();
 }
 
 function convertCurrency($from_currency,$to_currency): string

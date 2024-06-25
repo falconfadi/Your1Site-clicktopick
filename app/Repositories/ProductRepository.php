@@ -64,15 +64,15 @@ class ProductRepository
             });
         }
 
-        if ($categories = $request->get('categories')) {
+        if ($categories = $request->categories) {
+            if(gettype($categories) != 'array'){
+                $categories = explode(',',$categories);
+            }
             $products->whereIn('category_id', $categories);
         }
 
-
         if ($categoryId = $request->get('category')) {
-
             $category = Category::query()->find($categoryId);
-
             if ($category && $category->parent_category) {
                 $products->where('category_id', $categoryId);
             } elseif ($category) {
@@ -80,13 +80,14 @@ class ProductRepository
                 $products->whereIn('category_id', $ids);
             }
         }
-        
 
-        if ($maxPrice = $request->get('max_price'))
-            $products->where('price', '<', $maxPrice);
+        if ($request->filled('max_price')){
+            $products->where('price', '<=', $request->max_price);
+        }
 
-        if ($minPrice = $request->get('min_price'))
-            $products->where('price', '>', $minPrice);
+        if ($request->filled('min_price')){
+            $products->where('price', '>=', $request->min_price);
+        }
 
         if ($adminId = $request->get('portal_id'))
             $products->where('admin_id', $adminId);

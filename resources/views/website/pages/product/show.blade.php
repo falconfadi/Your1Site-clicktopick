@@ -3,22 +3,25 @@
     {{$product->name}}
 @endsection
 @section('content')
-    <div class="container-fluid py-5">
+    <div class="container-fluid py-2">
         <div class="row px-xl-5">
-            <div class="col-lg-5 pb-5">
+            <div class="col-lg-4 pb-5">
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner border">
+                    <div class="carousel-inner border px-2">
+                        @php
+                            $product->images = [...$product->images,$product->featured_image];
+                        @endphp
                         @forelse($product->images as $key=> $item)
                             <div class="carousel-item {{$key == 0 ? 'active':""}}">
                                 <img onerror="this.src='{{asset('web/images/no-image.jpg')}}';"  src="{{storageImage($item)}}"
                                      data-zoom-image="{{storageImage($item)}}"
-                                     alt="Electronics Black Wrist Watch" class="w-100 " style="max-height: 500px">
+                                     alt="Electronics Black Wrist Watch" class="w-100" height="300px">
                             </div>
                         @empty
                             <div class="carousel-item active">
                                 <img onerror="this.src='{{asset('web/images/no-image.jpg')}}';"  
                                     src="{{storageImage($product->featured_image)}}"
-                                    alt="Electronics Black Wrist Watch" class="w-100 " style="max-height: 500px">
+                                    alt="Electronics Black Wrist Watch" class="w-100" height="300px">
                             </div>
                         @endforelse
                     </div>
@@ -32,7 +35,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col-lg-7 pb-5">
+            <div class="col-lg-8 pb-5">
                 <h3 class="font-weight-semi-bold">{{$product->name}}</h3>
                 <h3 class="font-weight-semi-bold mb-4">{{$product->price}}</h3>
                 <p class="mb-4">   {!! $product->description !!}</p>

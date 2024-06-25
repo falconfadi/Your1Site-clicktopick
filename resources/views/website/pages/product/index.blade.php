@@ -4,12 +4,12 @@
 @endsection
 @section('content')
     <!-- Page Header Start -->
-    <div class="container-fluid bg-secondary mb-5">
+    <div class="container-fluid mb-5 py-2 px-5">
         <div class="d-flex flex-column align-items-center justify-content-center" 
         style="min-height: 300px ;
-        background-image:url('{{asset('web/img/pink-bg.png')}}');
-        background-size:contain;
-        background-position-x: center;
+            background-image:url('{{asset('web/img/pink-bg.png')}}');
+            background-size:contain;
+            background-position-x: center;
         ">
             <h1 class="font-weight-semi-bold text-white text-uppercase mb-3">{{ __('front.Our_Shop') }}</h1>
             <div class="d-inline-flex text-white">
@@ -102,30 +102,45 @@
                         </div>
                     </div>
                     
-                    
                     @forelse ($products as $product)
                         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                             <div class="card product-item border-0 mb-4">
-                                <div
-                                    class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                    <img class="img-fluid w-100 h-100"
-                                        src="{{ storageImage($product->featured_image) }}" alt="">
+                                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                    @if(!is_null($product->featured_image))
+                                        <img class="img-fluid w-100 h-100"
+                                            src="{{ storageImage($product->featured_image) }}" alt="" >
+                                    @elseif( count($product->images) )
+                                        <img class="img-fluid w-100 h-100"
+                                            src="{{ storageImage( $product->images[0]) }}" alt="" >
+                                    @else
+                                        <img class="img-fluid w-100 h-100"
+                                            src="{{ asset('web/images/no-image.jpg') }}" alt="" >
+                                    @endif
                                 </div>
                                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                    <h6 class="text-truncate mb-3">{{ $product->name }}</h6>
+                                    <h6 class="text-truncate mb-3">
+                                        {{ $product->name }}
+                                    </h6>
                                     <div class="d-flex justify-content-center">
-                                        <h6>{{ $product->price }}</h6>
-                                        <h6 class="text-muted ml-2"><del>{{ $product->price_before_discount }}</del></h6>
+                                        <h6>
+                                            {{ $product->price }}
+                                        </h6>
+                                        <h6 class="text-muted ml-2">
+                                            <del>{{ $product->price_before_discount }}</del>
+                                        </h6>
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between bg-light border">
                                     <a href="{{ route('user.products.show', $product) }}"
-                                        class="btn btn-sm text-dark p-0"><i
-                                            class="fas fa-eye text-primary mr-1"></i>{{ __('front.view_details') }}</a>
-                                    <a href="" data-product="{{ $product->id }}"
-                                        class="btn btn-sm text-dark p-0 {{ auth('user')->check() ? 'btn-cart' : '' }} add-to-cart"><i
-                                            class="fas fa-shopping-cart text-primary mr-1 "></i>{{ __('front.add_cart') }}</a>
-
+                                        class="btn btn-sm text-dark p-0">
+                                        <i class="fas fa-eye text-primary mr-1"></i>
+                                        {{ __('front.view_details') }}
+                                    </a>
+                                    <a data-product="{{ $product->id }}"
+                                        class="btn btn-sm text-dark p-0 {{ auth('user')->check() ? 'btn-cart' : '' }} add-to-cart">
+                                        <i class="fas fa-shopping-cart text-primary mr-1 "></i>
+                                        {{ __('front.add_cart') }}
+                                    </a>
                                 </div>
                             </div>
                         </div>

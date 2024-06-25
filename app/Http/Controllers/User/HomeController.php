@@ -25,13 +25,11 @@ class HomeController extends Controller
         $subCategories = Category::query()->active()->whereNotNull('parent_category')->get();
         return view('website.pages.home', compact('sliders', 'banners', 'products', 'listProduct','subCategories'));
     }
+    
     public function categories()
     {
         $categories = Category::query()->active()->whereNull('parent_category')->get();
         return view('website.pages.category.main-categories' , compact('categories'));
-
-
-
     }
 
     public function changeLang()

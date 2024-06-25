@@ -75,7 +75,6 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        // dd($category);
         return view('admin.category.show', compact('category'));
     }
 
@@ -107,7 +106,6 @@ class CategoryController extends Controller
             return redirect()->back();
 
         return redirect()->route('admin.categories.index');
-
     }
 
     /**
@@ -120,15 +118,13 @@ class CategoryController extends Controller
     public function destroy(Request $request, Category $category): RedirectResponse
     {
         $this->categoryRepository->delete($category);
-        $request->session()->flash('success', __($this->resource.'.'.$this->resource.'_deleted_successfully'));
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')
+        ->with('success', __($this->resource.'.'.$this->resource.'_deleted_successfully'));
     }
     
     public function deleteCategoryImage(Request $request,$id)
     {
         $this->categoryRepository->deleteCategoryImage($id);
-        $request->session()->flash('success', 'category image deleted');
-        return redirect()->back();
-        
+        return redirect()->back()->with('success', 'category image deleted');
     }
 }

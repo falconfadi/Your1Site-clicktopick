@@ -82,9 +82,10 @@ class CategoryRepository {
 
     public function delete(Category $category)
     {
-        if ($category->image != null)
+        if ($category->image != null){
             $category->image = Storage::disk('public')->delete($category->image);
-
+        }
+        Category::where('parent_category',$category->id)->delete();
         $category->delete();
     }
 
@@ -118,11 +119,9 @@ class CategoryRepository {
     public function deleteCategoryImage($id)
     {
         $category = Category::findOrFail($id);
-        if ($category->image != null)
-        {
+        if ($category->image != null){
             Storage::disk('public')->delete($category->image);
         }
-        $category->image = null;
-        return $category->save();
+        return $category->update(['image'=>null]);
     }
 }
