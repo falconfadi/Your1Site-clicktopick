@@ -78,27 +78,22 @@
                 </div>
             </nav>
             @if(isset($sliders))
-{{--            @if(request()->has('sliders'))--}}
             @if(count($sliders)>0)
             <div id="header-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     @foreach($sliders as $slider)
-                    {{-- {{$slider->id==1?'active':''}} --}}
-                    <div class="carousel-item {{$slider->sort_order == 1 || count($sliders) == 1 ?'active':''}} " style="height: 410px;">
+                    <div class="carousel-item {{$slider->sort_order == 1 || count($sliders) == 1 || $loop->first ?'active':''}} " style="height: 410px;">
                         <img class="img-fluid" src="{{storageImage($slider->responsive_image)}}" alt="Image">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
-                                <h4 class="text-light text-uppercase font-weight-medium mb-3">   {{$slider->title}}</h4>
-                                <h3 class="display-4 text-white font-weight-semi-bold mb-4">{{$slider->brief}}</h3>
-                                <a href="" class="btn btn-light py-2 px-3">
-                                    @if (checkCurrentLang())
-
-
+                                <h4 class="text-light text-uppercase font-weight-medium mb-3">
+                                    {{$slider->title}}
+                                </h4>
+                                <h3 class="display-4 text-white font-weight-semi-bold mb-4">
+                                    {{$slider->brief}}
+                                </h3>
+                                <a href="{{route('user.products.show', $slider->product_id)}}" class="btn btn-light py-2 px-3">
                                         {{__('front.shop_now')}}
-                                    @else
-                                        {{__('front.shop_now')}}
-
-                                    @endif
                                 </a>
                             </div>
                         </div>

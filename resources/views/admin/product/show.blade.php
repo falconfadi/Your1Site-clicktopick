@@ -22,18 +22,20 @@
                                         {!! $product->description !!}
                                     </span>
                                 </h1>
-                                <div class="d-flex flex-column align-items-md-end px-0 w-100">
-                                    <!--begin::Logo-->
-                                    <a href="{{ storageImage($product->featured_image) }}" class="mb-5 fancybox w-75">
-                                        <div class="symbol symbol-100 flex-shrink-0 mr-2">
-                                            <div class="symbol-label"
-                                                 style="background-image: url({{ storageImage($product->featured_image) }});
-                                                 width:150px;height:250px">
+                                @if(!is_null($product->featured_image) )
+                                    <div class="d-flex flex-column align-items-md-end px-0 w-100">
+                                        <a href="{{ storageImage($product->featured_image) }}" class="mb-5 fancybox w-75">
+                                            <div class="flex-shrink-0 mr-2 w-100">
+                                                <div class="w-100"
+                                                     style="background-image: url({{ storageImage($product->featured_image) }});
+                                                     height:250px;
+                                                     background-position: center;
+                                                     background-repeat: no-repeat;">
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                    <!--end::Logo-->
-                                </div>
+                                        </a>
+                                    </div>
+                                @endif
                             </div>
                             <div class="border-bottom w-100"></div>
                             <div class="d-flex justify-content-between pt-6 ">
@@ -89,39 +91,35 @@
                             <div class="d-flex flex-column align-items-md-start px-0">
                                 <span class="font-weight-bolder mb-2">{{__('product.Ranges')}}</span>
                             </div>
-                            <div class="d-flex justify-content-between pt-6 ">
+                            <div class="d-flexx justify-content-between pt-6 ">
                                 @forelse($product->ranges as $range)
-                                    <div class="d-flex flex-column flex-root">
+                                    <div class="d-flex my-2" style="gap:20px">
                                         <span class="font-weight-bolder mb-2">
                                             {{ __('product.Range price') }}
                                         </span>
                                         <span class="text-primary font-weight-boldest">
                                             {{ $range->price }}
                                         </span>
-                                    </div>
-                                    <div class="d-flex flex-column flex-root">
                                         <span class="font-weight-bolder mb-2">
                                             {{ __('product.Range start') }}
                                         </span>
                                         <span class="text-primary font-weight-boldest">
                                             {{ $range->range_start }}
                                         </span>
-                                    </div>
-                                    <div class="d-flex flex-column flex-root">
                                         <span class="font-weight-bolder mb-2">
                                             {{ __('product.Range end') }}
                                         </span>
                                         <span class="text-primary font-weight-boldest" >
                                             {{ $range->range_end }}
                                         </span>
-                                    </div>
-                                    <div class="d-flex flex-column flex-root">
                                         <span class="font-weight-bolder mb-2">
                                             {{ __('product.delete') }}
                                         </span>
                                         <form method="post" action="{{route('admin.deleteProductPriceRange',['range_id'=>$range->id])}}">
                                             @csrf
-                                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash p-0"></i></button>
+                                            <button type="submit" class="btn btn-def btn-sm p-0 m-0">
+                                                <i class="fa fa-trash text-danger p-0"></i>
+                                            </button>
                                         </form>
                                     </div>
                                 @empty

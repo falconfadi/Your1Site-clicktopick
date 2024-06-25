@@ -105,15 +105,15 @@
                     @forelse ($products as $product)
                         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                             <div class="card product-item border-0 mb-4">
-                                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                <div class="card-header product-img position-relative overflow-hidden bg-transparent text-center border p-0">
                                     @if(!is_null($product->featured_image))
-                                        <img class="img-fluid w-100 h-100"
+                                        <img class="img-fluid" style="height:300px!important"
                                             src="{{ storageImage($product->featured_image) }}" alt="" >
                                     @elseif( count($product->images) )
-                                        <img class="img-fluid w-100 h-100"
+                                        <img class="img-fluid" style="height:300px!important"
                                             src="{{ storageImage( $product->images[0]) }}" alt="" >
                                     @else
-                                        <img class="img-fluid w-100 h-100"
+                                        <img class="img-fluid" style="height:300px!important"
                                             src="{{ asset('web/images/no-image.jpg') }}" alt="" >
                                     @endif
                                 </div>

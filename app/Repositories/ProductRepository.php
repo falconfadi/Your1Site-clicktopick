@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use DB;
 
 class ProductRepository
 {
@@ -48,6 +49,14 @@ class ProductRepository
 
     public function delete(Product $product)
     {
+        $inventory = DB::table('inventory')->where('product_id',$product->id);
+        if($inventory->exists()){
+            $inventory->delete();
+        }
+        $ranges = DB::table('product_price_ranges')->where('product_id',$product->id);
+        if($ranges->exists()){
+            $ranges->delete();
+        }
         $product->delete();
     }
 

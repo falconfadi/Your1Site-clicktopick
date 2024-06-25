@@ -11,17 +11,12 @@
                 <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
                     @if(count(getMainCategories())>0)
                         @foreach(getMainCategories() as $category)
-
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link" data-toggle="dropdown">{{$category->name}} <i class="fa fa-angle-down float-right mt-1"></i></a>
                                 <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
                                     @foreach($category->subcategories as $item)
-
                                         <a class="dropdown-item" href="{{route('user.products.index',['category'=>$item->id])}}">{{$item->name}}</a>
-
-
                                     @endforeach
-
                                 </div>
                             </div>
                         @endforeach
@@ -46,12 +41,8 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
                         <a href="{{route('user.index')}}" class="nav-item nav-link {{request()->is('/')?'active':''}}">{{__('front.home')}}</a>
-                        {{--                        <a href="shop.html" class="nav-item nav-link">Shop</a>--}}
                         <a href="{{route('user.products.index')}}"  class="nav-item nav-link {{request()->routeIs('user.products.*')?'active':''}}">{{__('front.shop')}}</a>
-                        {{--                        <a href="{{route('user.products.show')}}" class="nav-item nav-link">Shop Detail</a>--}}
-
                         <a href="{{route('user.categories')}}" class="nav-item nav-link  {{request()->routeIs('user.categories')?'active':''}}">{{__('front.categories')}}</a>
-
                         <a href="{{route('user.contact')}}" class="nav-item nav-link {{request()->routeIs('user.contact')?'active':''}} "> {{__('front.contact')}}</a>
                         <a href="{{route('user.about')}}" class="nav-item nav-link {{request()->routeIs('user.about')?'active':''}}"> {{__('front.about')}}</a>
 

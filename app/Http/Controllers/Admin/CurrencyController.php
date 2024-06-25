@@ -101,6 +101,9 @@ class CurrencyController extends Controller
      */
     public function update(CurrencyRequest $request, Currency $currency): RedirectResponse
     {
+        if($currency->rate == 1 && $currency->symbol == '$'){
+            return back()->with('error','main currency can\'t be modified');
+        }
         $this->currencyRepository->update($request, $currency);
         $request->session()->put('appcurrency',getMainCurrency()->code);
         $request->session()->flash('success', __($this->resource.'.'.$this->resource.'_updated_successfully'));
@@ -121,7 +124,7 @@ class CurrencyController extends Controller
      */
     public function destroy(Request $request, Currency $currency): RedirectResponse
     {
-        if($currency->code == 'USD' || $currency->symbol == '$'){
+        if($currency->code == 'USD' && $currency->symbol == '$' && $currency->rate == 1){
             return back()->with('error','Main currency can\'t be deleted');
         }
         $this->currencyRepository->delete($currency);

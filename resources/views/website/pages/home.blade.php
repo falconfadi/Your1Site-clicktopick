@@ -53,10 +53,10 @@
                                     <p class="text-right">
                                         {{ $sub->product_count . ' ' . __('front.products') }}
                                     </p>
-                                    @if(!is_null($sub->image))
-                                        <img class="img-fluid w-100" src="{{ asset($sub->image) }}" 
-                                            style="height: 220px" onerror="this.src='{{storageImage($sub->image)}}'">
-                                    @endif
+                                    <!--@if(!is_null($sub->image))-->
+                                    <!--    <img class="img-fluid w-100" src="{{ asset($sub->image) }}" -->
+                                    <!--        style="height: 220px" onerror="this.src='{{storageImage($sub->image)}}'">-->
+                                    <!--@endif-->
                                 </a>
                                 <h5 class="font-weight-semi-bold m-0">{{ $sub->name }}</h5>
                             </div>
@@ -169,8 +169,9 @@
             @foreach ($products as $product)
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                     <div class="card product-item border-0 mb-4">
-                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="{{ storageImage($product->featured_image) }}" alt="">
+                        <div class="card-header product-img position-relative overflow-hidden text-center bg-transparent border p-1">
+                            <img class="img-fluid" src="{{ storageImage($product->featured_image) }}"
+                             style="height:300px!important;">
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3">{{ $product->name }}</h6>
@@ -212,9 +213,9 @@
             @foreach ($products as $product)
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                     <div class="card product-item border-0 mb-4">
-                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="{{ storageImage( $product->featured_image) }}"
-                                alt="">
+                        <div class="card-header product-img position-relative overflow-hidden text-center bg-transparent border p-1">
+                            <img class="img-fluid" src="{{ storageImage($product->featured_image) }}"
+                             style="height:300px!important;">
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3">
@@ -261,10 +262,11 @@
                 <div class="owl-carousel vendor-carousel">
                     @forelse($products as $product)
                         @if($loop->index < 5)
-                            <div class="vendor-item border p-2" stylex="max-height:150px;max-width:300px">
+                            <div class="vendor-item border text-center" >
                                 <a href="{{route('user.products.show',$product->id)}}" class="btn btn-sm text-dark" >
-                                    <img classx="img-fluid w-100 h-100" alt="{{$product->id}}"
-                                    src="{{storageImage($product->featured_image)}}">
+                                    <img classx="img-fluid" alt="{{$product->id}}" 
+                                    src="{{storageImage($product->featured_image)}}"
+                                    style="height:150px;">
                                     <h6>{{$product->name}}</h6>
                                 </a>
                             </div>

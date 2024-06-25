@@ -7,21 +7,21 @@
         <div class="row px-xl-5">
             <div class="col-lg-4 pb-5">
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner border px-2">
+                    <div class="carousel-inner border px-2 text-center">
                         @php
                             $product->images = [...$product->images,$product->featured_image];
                         @endphp
                         @forelse($product->images as $key=> $item)
-                            <div class="carousel-item {{$key == 0 ? 'active':""}}">
+                            <div class="carousel-item {{$key == 0 ? 'active':""}} p-2">
                                 <img onerror="this.src='{{asset('web/images/no-image.jpg')}}';"  src="{{storageImage($item)}}"
                                      data-zoom-image="{{storageImage($item)}}"
-                                     alt="Electronics Black Wrist Watch" class="w-100" height="300px">
+                                     alt="Electronics Black Wrist Watch" width="90%" height="300px">
                             </div>
                         @empty
-                            <div class="carousel-item active">
+                            <div class="carousel-item active p-2">
                                 <img onerror="this.src='{{asset('web/images/no-image.jpg')}}';"  
                                     src="{{storageImage($product->featured_image)}}"
-                                    alt="Electronics Black Wrist Watch" class="w-100" height="300px">
+                                    alt="Electronics Black Wrist Watch" width="90%" height="300px">
                             </div>
                         @endforelse
                     </div>
