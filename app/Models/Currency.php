@@ -12,7 +12,7 @@ class Currency extends Model implements TranslatableContract
     use HasFactory;
     use Translatable;
 
-    protected $fillable = ['code', 'symbol','rate', 'is_active', 'exchange_rate', 'use_api_rate'];
+    protected $fillable = ['code', 'symbol','rate', 'is_active', 'is_default', 'use_api_rate'];
 
     public $translatedAttributes = ['name'];
 

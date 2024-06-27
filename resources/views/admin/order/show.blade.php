@@ -79,9 +79,10 @@
                                     <tr>
                                         <th class="pl-0 font-weight-bold text-muted text-uppercase">{{__('order.item')}}</th>
                                         <th class="pl-0 font-weight-bold text-muted text-uppercase">{{__('order.sku')}}</th>
+                                        <th class="text-right font-weight-bold text-muted text-uppercase">{{__('order.price')}}</th>
                                         <th class="text-right font-weight-bold text-muted text-uppercase">{{__('order.quantity')}}</th>
-                                        <th class="text-right font-weight-bold text-muted text-uppercase">{{__('order.price_after_discount')}}</th>
-                                        <th class="text-right pr-0 font-weight-bold text-muted text-uppercase">{{__('order.price')}}</th>
+                                        <th class="text-right font-weight-bold text-muted text-uppercase">{{__('order.price_before_discount')}}</th>
+                                        <th class="text-right pr-0 font-weight-bold text-muted text-uppercase">{{__('order.total_price')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -89,6 +90,7 @@
                                             <tr class="font-weight-boldest">
                                                 <td class="pl-0 pt-7">{{  $item->product->name }}</td>
                                                 <td class="pl-0 pt-7">{{  $item->product->sku }}</td>
+                                                <td class="text-right pt-7">{{ $item->product->price }}</td>
                                                 <td class="text-right pt-7">{{ $item->qty }}</td>
                                                 <td class="text-right pt-7">{{ $item->price_before_discount }} £</td>
                                                 <td class="text-danger pr-0 pt-7 text-right">{{ $item->price }} £</td>

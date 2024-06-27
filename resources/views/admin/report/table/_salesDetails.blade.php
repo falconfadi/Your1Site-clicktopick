@@ -23,6 +23,8 @@
                     <th class="text-center" style="min-width: 100px">{{ __($item.'.order_time') }}</th>
                     <th class="text-center" style="min-width: 100px">{{ __($item.'.status') }}</th>
                     <th class="text-center" style="min-width: 100px">{{ __($item.'.total') }}</th>
+                    <th class="text-center" style="min-width: 100px">{{ __($item.'.items') }}</th>
+                    <th class="text-center" style="min-width: 100px">{{ __($item.'.profit') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,6 +51,20 @@
                         </td>
                         <td>
                             <span class="text-center text-dark-75 font-weight-bolder d-block font-size-lg">{{ $row->total_price }}</span>
+                        </td>
+                        <td>
+                            <span class="text-center text-dark-75 font-weight-bolder d-block font-size-lg">{{ $row->items()->count() }}</span>
+                        </td>
+                        <td>
+                            @php 
+                                foreach($row->items as $product){
+                                    $temp = $product->product->price - $product->product->capital_price;
+                                    $product->profit = $temp * $product->qty;
+                                }
+                                $profitPerItem = $row->items->sum('profit');
+                                
+                            @endphp
+                            <span class="text-center text-dark-75 font-weight-bolder d-block font-size-lg">{{ $profitPerItem }}</span>
                         </td>
                 @endforeach
                 </tbody>

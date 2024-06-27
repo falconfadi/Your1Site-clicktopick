@@ -14,12 +14,26 @@ class CurrencyRepository {
 
     public function add(Request $request)
     {
+        if($request->filled('is_default')){
+            if($request->rate > 1){
+                return throw new Exception('Rate for Default must be 1');
+            }
+            $default = Currency::where('is_default',1)->update(['is_default'=>0,'rate'=>rand(2,5)]);
+            $request['is_default'] = (bool)$request['is_default'];
+        }
         $currency = new Currency(populateModelData($request, Currency::class));
         $currency->save();
     }
 
     public function update(Request $request, Currency $currency)
     {
+        if($request->filled('is_default')){
+            if($request->rate > 1){
+                return throw new Exception('Rate for Default must be 1');
+            }
+            $default = Currency::where('is_default',1)->update(['is_default'=>0,'rate'=>rand(2,5)]);
+            $request['is_default'] = (bool)$request['is_default'];
+        }
         $currency->update(populateModelData($request, Currency::class));
         $currency->save();
     }

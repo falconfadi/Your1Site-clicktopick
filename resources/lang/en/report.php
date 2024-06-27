@@ -20,5 +20,6 @@ return [
     'status' => 'Status',
     'total' => 'Total',
     'country' => 'Country',
-
+    'items' => 'Items',
+    'profit' => 'Profit',
 ];

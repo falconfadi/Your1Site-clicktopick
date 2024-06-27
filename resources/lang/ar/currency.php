@@ -16,6 +16,7 @@ return [
     'empty' => 'فارغ',
     'status' => 'الحالة',
     'is_active' => 'هل هو مفعل ؟',
+    'is_default' => 'الافتراضية',
     'use_api_rate' => 'استخدم معدلات خارجية ؟',
     'all' => 'All',
     'currency_created_successfully' => 'تم انشاء العملة بنجاح',

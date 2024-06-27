@@ -498,30 +498,30 @@ return [
             ]
         ],
         // Reports
-        // [
-        //     'section' => 'Custom',
-        // ],
-        // [
-        //     'title' => 'admin.reports_management',
-        //     'icon' => 'assets/media/svg/icons/Media/Equalizer.svg',
-        //     'bullet' => 'line',
-        //     'root' => true,
-        //     'permission' => 'list reports',
-        //     'submenu' => [
-        //         [
-        //             'title' => 'admin.reports.date_wise_sales',
-        //             'page' => 'admin.reports.dateWiseSalesIndex',
-        //         ],
-        //         [
-        //             'title' => 'admin.reports.sales_details',
-        //             'page' => 'admin.reports.salesDetailsIndex',
-        //         ],
-        //         [
-        //             'title' => 'admin.reports.item_wise_sales',
-        //             'page' => 'admin.reports.itemWiseSalesIndex',
-        //         ],
-        //     ]
-        // ],
+        [
+            'section' => 'Custom',
+        ],
+        [
+            'title' => 'admin.reports_management',
+            'icon' => 'assets/media/svg/icons/Media/Equalizer.svg',
+            'bullet' => 'line',
+            'root' => true,
+            'permission' => 'list reports',
+            'submenu' => [
+                // [
+                //     'title' => 'admin.reports.date_wise_sales',
+                //     'page' => 'admin.reports.dateWiseSalesIndex',
+                // ],
+                [
+                    'title' => 'admin.reports.sales_details',
+                    'page' => 'admin.reports.salesDetailsIndex',
+                ],
+                // [
+                //     'title' => 'admin.reports.item_wise_sales',
+                //     'page' => 'admin.reports.itemWiseSalesIndex',
+                // ],
+            ]
+        ],
         // Reports
         [
             'section' => 'Custom',

@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Exception;
 
 class CurrencyController extends Controller
 {
@@ -60,7 +61,11 @@ class CurrencyController extends Controller
      */
     public function store(CurrencyRequest $request): RedirectResponse
     {
-        $this->currencyRepository->add($request);
+        try{
+            $this->currencyRepository->add($request);
+        }catch(Exception $e){
+            return back()->with('error',$e->getMessage());
+        }
 
         $request->session()->flash('success', __($this->resource.'.'.$this->resource.'_created_successfully'));
 
@@ -101,10 +106,11 @@ class CurrencyController extends Controller
      */
     public function update(CurrencyRequest $request, Currency $currency): RedirectResponse
     {
-        if($currency->rate == 1 && $currency->symbol == '$'){
-            return back()->with('error','main currency can\'t be modified');
+        try{
+            $this->currencyRepository->update($request, $currency);
+        }catch(Exception $e){
+            return back()->with('error',$e->getMessage());
         }
-        $this->currencyRepository->update($request, $currency);
         $request->session()->put('appcurrency',getMainCurrency()->code);
         $request->session()->flash('success', __($this->resource.'.'.$this->resource.'_updated_successfully'));
 
@@ -124,7 +130,7 @@ class CurrencyController extends Controller
      */
     public function destroy(Request $request, Currency $currency): RedirectResponse
     {
-        if($currency->code == 'USD' && $currency->symbol == '$' && $currency->rate == 1){
+        if($currency->is_default == true){
             return back()->with('error','Main currency can\'t be deleted');
         }
         $this->currencyRepository->delete($currency);

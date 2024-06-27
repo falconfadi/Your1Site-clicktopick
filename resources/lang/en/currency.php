@@ -16,6 +16,7 @@ return [
     'empty' => 'Empty',
     'status' => 'Status',
     'is_active' => 'Is Active?',
+    'is_default' => 'Is Default',
     'use_api_rate' => 'Use api rate?',
     'all' => 'All',
     'currency_created_successfully' => 'Currency Created Successfully',

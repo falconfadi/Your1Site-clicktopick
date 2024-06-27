@@ -5,9 +5,7 @@ use Illuminate\Support\Facades\Session;
 function getMainCurrency()
 {
     // return Currency::whereRate(1)->first();
-    return Currency::Where('symbol','$')
-        ->orWhere('rate',1)
-        ->first();
+    return Currency::Where('is_default',1)->first();
 }
 
 function convertCurrency($from_currency,$to_currency): string

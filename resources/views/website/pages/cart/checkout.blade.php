@@ -129,42 +129,27 @@
 
                             <div class="form-group checkbox-toggle pb-2">
                                 <input type="checkbox" class="custom-checkbox" onclick="slideContent()"
-                                       id="shipping-toggle"
-                                       name="checkeds" value="1">
-                                <label for="shipping-toggle"
-                                       onclick="slideContent()">{{__('front.shipping_other_address')}}</label>
+                                       id="shipping-toggle" name="checkeds" value="1">
+                                <label for="shipping-toggle" onclick="slideContent()">
+                                    {{__('front.shipping_other_address')}}
+                                </label>
                             </div>
-                            <div class="checkbox-content">
+                            <div class="checkbox-content" id="form" style="display:none;">
                                 <div class="row gutter-sm">
                                     <div class="col-5 mr-2">
                                         <div class="form-group">
-
-                                            <label>{{__('front.first_name')}} <span style="color: red"></span>*</label>
-                                            <input type="text" class="form-control form-control-md" name="firstname"
-                                                   required>
-
+                                            <label>{{__('front.first_name')}} <span style="color: red">*</span></label>
+                                            <input type="text" class="form-control form-control-md" name="firstname" required>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-
                                             <label>{{__('front.last_name')}} <span style="color: red">*</span></label>
-                                            <input type="text" class="form-control form-control-md" name="lastname"
-                                                   required>
+                                            <input type="text" class="form-control form-control-md" name="lastname"required>
 
                                         </div>
                                     </div>
                                 </div>
-{{--                                <label>{{__('front.city')}} <span style="color: red">*</span></label>--}}
-{{--                                <div class="select-box">--}}
-{{--                                    <select name="cityid" class="form-control form-control" style="max-width: 100%">--}}
-{{--                                        <option value="0" selected="selected">{{__('front.select_city')}}</option>--}}
-{{--                                        @foreach(getCities() as $city)--}}
-{{--                                            <option value="{{$city->id}}">{{$city->name}}</option>--}}
-{{--                                        @endforeach--}}
-{{--                                    </select>--}}
-
-{{--                                </div>--}}
                                 <div class="form-group">
                                     <label>{{__('front.addresses')}} <span style="color: red">*</span></label>
                                     <input type="text" placeholder="{{__('front.address_info')}}"
@@ -263,7 +248,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                 </form>
             @else
@@ -273,10 +257,7 @@
                     <p style="margin-top: 21px;font-weight: bold;" class="text-dark">{{__('front.cart_items')}}</p>
                     <a href="{{route('user.products.index')}}"
                        class="btn btn-primary btn-rounded btn-icon-right slide-animate"
-                       data-animation-options="{
-                                    'name': 'fadeInUpShorter', 'duration': '1s'
-                                }">
-
+                       data-animation-options="{'name': 'fadeInUpShorter', 'duration': '1s'}">
                         @if (checkCurrentLang())
                             <i class="w-icon-long-arrow-left"></i>
                             {{__('front.shop_now')}}
@@ -287,16 +268,15 @@
                     </a>
                 </div>
             @endif
-
         </div>
     </div>
-
 
 @endsection
 @section('scripts')
     <script src="{{ asset('custom/js/jquery.validate.min.js') }}"></script>
     <script>
         function slideContent() {
+            $('#form').toggle();
             $('#name').slideToggle();
             $('#city').slideToggle();
             $('#address').slideToggle();

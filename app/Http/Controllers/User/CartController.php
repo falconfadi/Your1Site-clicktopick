@@ -30,11 +30,13 @@ class CartController extends Controller
     public function getIndex()
     {
         $cart = Cart::with('items')->notActive()->where('user_id', auth('user')->id())->first();
-        foreach($cart->items as $item)
-        {
-            $item->ranges = DB::table('product_price_ranges')
-            ->where('product_id',$item->product_id)
-            ->get(['id','price','range_start','range_end']);
+        if(!is_null($cart) && $cart->items()->count()>0){
+            foreach($cart->items as $item)
+            {
+                $item->ranges = DB::table('product_price_ranges')
+                ->where('product_id',$item->product_id)
+                ->get(['id','price','range_start','range_end']);
+            }
         }
         return view('website.pages.cart.cart', compact('cart'));
     }
@@ -142,9 +144,8 @@ class CartController extends Controller
     
     public function restorInventory($product_id,$quantity)
     {
-         $inventory = DB::table('inventory')->where('product_id',$product_id);
-        if($inventory->exists())
-        {
+        $inventory = DB::table('inventory')->where('product_id',$product_id);
+        if($inventory->exists()){
             $inventory->update(['quantity'=>$inventory->first()->quantity + $quantity]);
         }   
     }
@@ -187,61 +188,38 @@ class CartController extends Controller
 
     public function proceedToCheckout(Request $request): RedirectResponse
     {
-
-        $userId = auth('user')->id();
         $items = $request->get('items');
-        $cart = Cart::notActive()->whereUserId($userId)->first();
-
+        $user = auth('user')->user();
+        $cart = Cart::notActive()->whereUserId($user->id)->firstOrFail();
+        $cartItems = CartItem::whereCartId($cart->id)->get();
+        $userAddressDetails = $user->shippingDetails()->orderByDesc('created_at')->first();
         try {
-            $user = auth('user')->user();
-            $cart = Cart::notActive()->whereUserId($user->id)->first();
-            $cartItems = CartItem::whereCartId($cart->id)->get();
-            $userAddressDetails = $user->shippingDetails()
-                ->orderByDesc('created_at')->first();
-
-
-            try {
-                if ($couponId = $request->get('coupon')) {
-                    $coupon = Coupon::query()->find($couponId);
-                    //TODO: CHECK IF COUPON I VALID
-                } else {
-                    $coupon = null;
-                }
-                if ($request->get('firstname') != null) {
-                    $shippingDetails = $this->createOtherDetails($request->all());
+            $coupon = $request->filled('coupon') ? Coupon::findOrFail($request->coupon) : null ;
+            
+            if ($request->get('firstname') != null) {
+                $shippingDetails = $this->createOtherDetails($request->all());
+                $shippingDetails->save();
+            } else {
+                if (!$userAddressDetails) {
+                    $shippingDetails = $this->createShippingDetails($user, $user->id);
                     $shippingDetails->save();
-                } else {
-                    if ($userAddressDetails) {
-                        $userAddressDetails->update($request->all());
-                        $shippingDetails = $userAddressDetails;
-                    } else {
-                        $shippingDetails = $this->createShippingDetails($request, $user->id);
-                        $shippingDetails->save();
-                    }
+                }else{
+                    $shippingDetails = $userAddressDetails;
                 }
-                $shippingPrice = $cart->calculateShippingPrice();
-                $orderDetails = $this->createOrderDetails($user->id, $shippingDetails->id, $shippingPrice);
-                $orderDetails->save();
-
-                $vendors = [];
-                foreach ($cartItems as $item) {
-                    $vendors[$item->admin_id][] = $item;
-                }
-                foreach ($vendors as $id => $vendor) {
-                    $order = $this->createOrder($user->id, $id, $orderDetails->id, $coupon);
-                    $order->save();
-                    $cart->update(['order_id' => $order->id, 'status' => 1]);
-                    $cart->save();
-                    $cart->items()->saveMany($vendor);
-                    $cart->calculateTotalPrice();
-                    $order->calculatePrices($shippingPrice);
-                }
-            } catch (\Exception $exception) {
-                $request->session()->flash('error', $exception->getMessage());
-                dd($exception->getMessage());
             }
-        } catch (\Exception $exception) {
-            $request->session()->flash('error', $exception->getMessage());
+            $shippingPrice = $cart->calculateShippingPrice();
+            $orderDetails = $this->createOrderDetails($user->id, $shippingDetails->id, $shippingPrice);
+            $orderDetails->save();
+            $order = $this->createOrder($user->id, $cartItems->first()->admin_id, $orderDetails->id, $coupon);
+            $order->save();
+            $cart->update(['order_id' => $order->id, 'status' => 1]);
+            foreach ($cartItems as $key => $item) {
+                $cart->items()->save($item);
+            }
+            $cart->calculateTotalPrice();
+            $order->calculatePrices($shippingPrice);
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
         $request->session()->flash('success', __('front.your_order_has_been_created_successfully'));
         return redirect()->route('user.order');
@@ -283,20 +261,21 @@ class CartController extends Controller
     public function createShippingDetails($request, $userId): ShippingDetails
     {
         return new ShippingDetails([
-            'first_name' => $request->get('first_name'),
-            'last_name' => $request->get('last_name'),
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
             'user_id' => $userId,
             'city_id' => null,
-            'post_code' => $request->get('post_code'),
-            'address' => $request->get('address'),
-            'phone_number' => $request->get('phone_number'),
-            'email' => $request->get('email'),
+            'post_code' => $request['post_code'] ?? 0000,
+            'address' => $request['address'] ?? 'address',
+            'phone_number' => $request['phone_number'],
+            'email' => $request['email'],
         ]);
     }
 
     public function createOtherDetails($request): ShippingDetails
     {
         return new ShippingDetails([
+            'user_id' => auth('user')->id(),
             'first_name' => $request['firstname'],
             'last_name' => $request['lastname'],
             'city_id' => null,
