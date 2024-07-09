@@ -6075,7 +6075,7 @@ __webpack_require__.r(__webpack_exports__);
 $("body").on('click', '.add-to-cart', function (e) {
   e.preventDefault();
   var productId = $(this).data('product');
-  var quantityVal = $('.quantity').val();
+  var quantityVal = $('#quantity').val() || 1;
   var countCartId = $('#icon-cart-count');
   var url = $('#router').data('add-to-cart');
   $.ajax({
@@ -6094,11 +6094,17 @@ $("body").on('click', '.add-to-cart', function (e) {
       });
     },
     error: function error(xhr, ajaxOptions, thrownError) {
+        let message= '';
+        if(xhr.status == '401'){
+            message = 'Login First';
+        }else{
+            message = xhr.responseJSON.message;
+        }
       _default__WEBPACK_IMPORTED_MODULE_0__.Toast.fire({
         icon: "warning",
-        html: '<spans style="color: #FFFFFF; font-size: 18px;">please login first</spans>'
+        html: `<spans style="color: #FFFFFF; font-size: 18px;">${message}</spans>`
       });
-    }
+    },
   });
 });
 $("body").on('click', '#apply_coupon', function (e) {
@@ -6179,14 +6185,24 @@ $(".update-cart").on('click', function (e) {
       'cart_id': cartId
     },
     success: function success(data) {
-      if (data.message == "success") {
         _default__WEBPACK_IMPORTED_MODULE_0__.Toast.fire({
           icon: "success",
-          html: '<spans style="color: #FFFFFF; font-size: 18px;">cart updated successfully</spans>'
+          html: `<spans style="color: #FFFFFF; font-size: 18px;">${data.message}</spans>`
         });
-        window.location.reload(); /**/
-      }
-    }
+        window.location.reload();
+    },
+    error: function error(xhr, ajaxOptions, thrownError) {
+        let message= '';
+        if(xhr.status == '401'){
+            message = 'Login First';
+        }else{
+            message = xhr.responseJSON.message;
+        }
+      _default__WEBPACK_IMPORTED_MODULE_0__.Toast.fire({
+        icon: "warning",
+        html: `<spans style="color: #FFFFFF; font-size: 18px;">${message}</spans>`
+      });
+    },
   });
 });
 $("#clear-cart").on('click', function (e) {

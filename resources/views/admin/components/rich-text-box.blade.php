@@ -3,7 +3,6 @@
         {{ isset($item) ? __($item.'.'.$name) : __('admin.'.$name) }}
     </label>
     <br>
-    <br>
     <div class="col-lg-9 col-xl-9">
         <textarea class="rich  @error($name.':'.$locale) is-invalid @enderror" name="{{ $name }}:{{ $locale }}" {{ $required ? 'required' : '' }}>
         {{ $oldValue ? ($oldValue->translate($locale) && $oldValue->translate($locale)->{$valueName} ? $oldValue->translate($locale)->{$valueName}: $oldValue->{$valueName}): old($name.':'.$locale) }}

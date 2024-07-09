@@ -360,22 +360,22 @@ return [
                         ]
                     ]
                 ],
-                [
-                    'title' => 'admin.banners',
-                    'bullet' => 'dot',
-                    'submenu' => [
-                        [
-                            'title' => 'admin.all_banners',
-                            'page' => 'admin.banners.index',
-                            'permission' => 'list banners',
-                        ],
-                        [
-                            'title' => 'admin.new_banners',
-                            'page' => 'admin.banners.create',
-                            'permission' => 'add banners',
-                        ]
-                    ]
-                ],
+                // [
+                //     'title' => 'admin.banners',
+                //     'bullet' => 'dot',
+                //     'submenu' => [
+                //         [
+                //             'title' => 'admin.all_banners',
+                //             'page' => 'admin.banners.index',
+                //             'permission' => 'list banners',
+                //         ],
+                //         [
+                //             'title' => 'admin.new_banners',
+                //             'page' => 'admin.banners.create',
+                //             'permission' => 'add banners',
+                //         ]
+                //     ]
+                // ],
             ]
         ],
         // Notifications

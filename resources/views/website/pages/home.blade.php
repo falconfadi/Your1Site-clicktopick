@@ -1,7 +1,6 @@
 @extends('website.app')
 @section('title', __('front.home'))
 @section('content')
-
     <!-- Featured Start -->
     <div class="container-fluid  my-5 py-4">
         <div class="text-center my-4 py-4">
@@ -176,9 +175,9 @@
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3">{{ $product->name }}</h6>
                             <div class="d-flex justify-content-center">
-                                <h6>{{ $product->price_before_discount }}</h6>
+                                <h6>{{ $product->price }}</h6>
                                 <h6 class="text-muted ml-2">
-                                    <del>{{ $product->price }}</del>
+                                    <del>{{ $product->price_before_discount }}</del>
                                 </h6>
                             </div>
                         </div>
@@ -223,10 +222,10 @@
                             </h6>
                             <div class="d-flex justify-content-center">
                                 <h6>
-                                    {{ $product->price_before_discount }}
+                                    {{ $product->price }}
                                 </h6>
                                 <h6 class="text-muted ml-2">
-                                    <del>{{ $product->price }}</del>
+                                    <del>{{ $product->price_before_discount }}</del>
                                 </h6>
                             </div>
                         </div>

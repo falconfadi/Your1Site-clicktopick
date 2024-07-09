@@ -29,19 +29,8 @@
             <div class="col-lg-12 col-md-12">
                 <div class="row pb-3">
                     <div class="col-12 pb-1">
-                        <div class="d-flex align-items-center justify-content-between mb-2">
-                            <div class="d-flex">
-                                <form action="/products" method="get">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="search"
-                                            placeholder="{{ __('front.search_by_name') }}">
-                                        <div class="input-group-append">
-                                            <button type="submit" class="input-group-text bg-transparent text-primary">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                        <div class="d-flex flex-wrap align-items-center justify-content-betweenx mb-2">
+                            <div class="mx-1 d-flex">
                                 <p class="m-2">{{__('front.Filter')}}</p>
                                 <div class="dropdown">
                                     <button class="btn border dropdown-toggle" type="button" id="triggerId"
@@ -91,9 +80,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="" style="min-width:5rem;">
+                            <div class="mx-1 ">
+                                <form action="/products" method="get">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="search"
+                                            placeholder="{{ __('front.search_by_name') }}">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="input-group-text bg-transparent text-primary">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="mx-1 " style="min-width:5rem;">
                                 <a href="/products" class="">
-                                    <button class="btn btn-sm btn-outline-primary rounded w-100">
+                                    <button class="btn btn-outline-primary rounded w-100">
                                         {{__('front.Reset')}}
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </button>

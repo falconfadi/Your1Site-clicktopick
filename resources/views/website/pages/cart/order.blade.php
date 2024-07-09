@@ -100,22 +100,22 @@
                         <table class="order-subtable">
                             <thead>
                             <tr>
-                                <th class="order">{{__('front.order')}}</th>
-                                <th class="date">{{__('front.date')}}</th>
-                                <th class="status">{{__('front.status')}}</th>
-                                <th class="total">{{__('front.total')}}</th>
-                                <th class="action"></th>
+                                <th class="px-3 order">{{__('front.order')}}</th>
+                                <th class="px-3 date">{{__('front.date')}}</th>
+                                <th class="px-3 status">{{__('front.status')}}</th>
+                                <th class="px-3 total">{{__('front.total')}}</th>
+                                <th class="px-3 action"></th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($user->orders as $item)
                                 @if($item->id != $order->id)
                                     <tr>
-                                        <td class="order">{{$item->code}}</td>
-                                        <td class="date">{{$item->date}}</td>
-                                        <td class="status">{{$item->statusName}}</td>
-                                        <td class="total">{{$item->total_price ." " .getAppCurrency()->symbol }}</td>
-                                        <td class="action"><a href="{{route('user.order.show',$item->code)}}"
+                                        <td class="px-3 order">{{$item->code}}</td>
+                                        <td class="px-3 date">{{$item->date}}</td>
+                                        <td class="px-3 status">{{$item->statusName}}</td>
+                                        <td class="px-3 total">{{$item->total_price ." " .getAppCurrency()->symbol }}</td>
+                                        <td class="px-3 action"><a href="{{route('user.order.show',$item->code)}}"
                                                               class="btn btn-rounded">{{__('front.view')}}</a></td>
                                     </tr>
                                 @endif
@@ -125,7 +125,6 @@
                     </div>
                 @endif
             <!-- End of Sub Orders-->
-
                 <div id="account-addresses">
                     <div class="row">
                         <div class="col-sm-6 mb-8">
@@ -151,7 +150,7 @@
 {{--                                                : {{$order->orderDetail->shippingDetails->city->name}}</td>--}}
 {{--                                        </tr>--}}
                                         <tr>
-                                            <td>{{__('front.post_code')}} : {{$order->orderDetail->post_code}}</td>
+                                            <td>{{__('front.post_code')}} : {{$order->orderDetail->shippingDetails->post_code}}</td>
                                         </tr>
                                         <tr>
                                             <td>{{__('front.phone')}}

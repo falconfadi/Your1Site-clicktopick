@@ -15,6 +15,7 @@ class LoginController extends Controller
     {
         return view('website.auth.login');
     }
+    
     public function login(Request $request): RedirectResponse
     {
         $credentials = $request->only('email', 'password');
@@ -24,7 +25,7 @@ class LoginController extends Controller
                 auth('user')->logout();
                 Session::flash('error' , __('front.please_verify_your_account'));
                 $request->session()->put('user', $user);
-                return redirect()->route('user.verification');
+                return redirect()->route('user.verification.notice');
             }
             return redirect()->route('user.index');
         } else {

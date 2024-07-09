@@ -48,21 +48,18 @@
 
                     </div>
                     @guest('user')
-
                         <div class="navbar-nav ml-auto py-0">
                             <a href="{{route('user.login')}}" class="nav-item nav-link"> {{__('front.login')}}</a>
                             <a href="{{route('user.register')}}" class="nav-item nav-link">{{__('front.register')}}</a>
                         </div>
-                    @endguest()
+                    @endguest
                     @auth('user')
-                        {{-- <a href="{{route('user.login')}}" class="nav-item nav-link">{{__('front.logout')}}</a> --}}
-
                         <div class="dropdown">
                             <button class="btn btn-default btn-sm dropdown-toggle" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                {{__('front.hello')}} {{auth('user')->user()->first_name}}
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                                <a class="dropdown-item" href="#">{{__('front.profile')}}</a>
+                                <!--<a class="dropdown-item" href="#">{{__('front.profile')}}</a>-->
                                 <a href="{{route('user.logout')}}" class="dropdown-item">{{__('front.logout')}}</a>
                             </div>
                             

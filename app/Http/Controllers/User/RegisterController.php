@@ -14,6 +14,7 @@ use Dompdf\Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -32,38 +33,78 @@ class RegisterController extends Controller
 
     public function register(Request $request): RedirectResponse
     {
-        $validate = $request->except('avatar');
-        if ($request->hasFile('avatar'))
+        $validate = $request->validate([
+                'first_name'=>['required','string','min:4'],
+                'last_name'=>['required','string',],
+                'email'=>['required','email:dns','unique:users,email',],
+                'phone_number'=>['required','regex:/^[0][1-9]{9}$/','unique:users,phone_number',],
+                'password'=>['required','min:6','confirmed'],
+                'avatar'=>['nullable','image','max:512'],
+            ],[
+                'email.unique'=>'Email is already taken',
+                'phone_number.regex'=>'Phone number should start with 0 and should be 10 digits',
+                'phone_number.unique'=>'Phone number is already taken',
+            ]);
+        if ($request->hasFile('avatar')){
             $validate['avatar'] = Storage::disk('public')->put('users', $request->file('avatar'));
-        else
+        }else{
             $validate['avatar'] = Str::of(Storage::putFile('public/users/default', (base_path('public/assets/media/users/default.jpg'))))->replace('public/', '');
+        }
 
-        $user = User::query()->create($validate);
-//        $user = $user->generateActivationCode();
-
-        /** @var User|Boolean $errorOrUser */
-        if (!($user instanceof User)) {
-            if ($user->avatar)
-                $user->avatar = Storage::disk('public')->delete($user->avatar);
-
-            $user->delete();
-            return redirect()->route('user.register');
-        } else {
-            $user->status=1;
-            $user->mobile_verified_at=Carbon::now();
+        $user = User::create($validate);
+        try{
+            $user = $user->sendEmailVerificationCode();
             $user->save();
-            //this login for testing will be next step put verification
-            $credentials = $request->only('email', 'password');
-            if (auth('user')->attempt($credentials)) {
-                return redirect()->route('user.index');
-            }
-
-            $request->session()->put('user', $user);
-                         return redirect()->route('user.login');
-
+            session()->put('user', $user);
+            return redirect()->route('user.verification.notice');   
+        }catch(\Exception $e){
+            // if ($user->avatar){
+            //     $user->avatar = Storage::disk('public')->delete($user->avatar);
+            // }
+            // $user->delete();
+            // return redirect()->back()->with('error','Couldn\'t send your verification email,please try later');
+            $user->update(['status'=>1,'email_verified_at'=>now()]);
+            auth('user')->login($user);
+            return redirect()->route('user.index');
         }
     }
 
+    public function verificationCode(Request $request){
+        $request->validate([
+                'user_id'=>['required','exists:users,id'],
+                'code'=>['required','digits:6'],
+            ]);
+        $user = User::find($request->user_id);
+        if(!$user || $user->code != $request->code){
+            return redirect()->back()->with('error','Code do not match our records');
+        }
+        $user->checkEmailVerificationCode();
+        $user->save();
+        auth('user')->login($user);
+        if(Auth::guard('user')->check()){
+            return redirect()->route('user.index');
+        }else{
+            return redirect()->route('user.login');
+        }
+    }
+    
+    public function resendVerificationCode(Request $request){
+        $request->validate([
+                'user_id'=>['required','exists:users,id'],
+            ]);
+        $user = User::find($request->user_id);
+        if(!$user){
+            return redirect()->back()->with('error','User not found');
+        }
+        if($user->updated_at->addMinutes(10) > now()){
+            return redirect()->back()->with('error','You need to wait 10 minuts');
+        }
+        $user->sendEmailVerificationCode();
+        $user->save();
+        session()->put('user',$user);
+        return redirect()->back()->with('success','Code resend');
+    }
+    
     public function verification()
     {
         $user = \session()->get('user');

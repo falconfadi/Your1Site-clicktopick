@@ -12,8 +12,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\verificationCode;
 
-class User extends Authenticatable
+class User extends Authenticatable 
 {
     use HasFactory, Notifiable , HasApiTokens, HasRoles;
 
@@ -91,7 +93,6 @@ class User extends Authenticatable
         return $this->hasOne(ShippingDetails::class);
     }
 
-
     public function wishList(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'favorites')->withPivot('product_id');
@@ -123,6 +124,21 @@ class User extends Authenticatable
         $this->mobile_verified_at = null;
         return $this;
     }
+    
+    public function sendEmailVerificationCode(){
+        $code = rand( 100000 , 999999 );
+        Mail::to($this->email)->send(new verificationCode($code));
+        $this->code = $code;
+        return $this;
+    }
+    
+    public function checkEmailVerificationCode(){
+        $this->code = null;
+        $this->status = 1;
+        $this->email_verified_at =  now();
+        return $this;
+    }
+    
     public function setFirebaseToken($token): User
     {
         $this->firebase_token = $token;
@@ -190,6 +206,7 @@ class User extends Authenticatable
 
     public function isActive(): bool
     {
-        return $this->status && $this->mobile_verified_at;
+        // return $this->status && $this->mobile_verified_at;
+        return $this->status && $this->email_verified_at;
     }
 }

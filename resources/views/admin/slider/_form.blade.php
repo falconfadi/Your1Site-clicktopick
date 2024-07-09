@@ -1,6 +1,6 @@
 {{--Form Inputs--}}
-    <x-text :name="'title'" :locale="$locale" :oldValue="$entity ?? null" :required="true"></x-text>
-    <x-text :name="'brief'" :locale="$locale" :oldValue="$entity ?? null" :required="true"></x-text>
+    <x-text :name="'title'" :locale="$locale" :oldValue="$entity ?? null" :required="false"></x-text>
+    <x-text :name="'brief'" :locale="$locale" :oldValue="$entity ?? null" :required="false"></x-text>
 
     @if($locale == 'en')
         <x-number :name="'sort_order'" :oldValue="$entity ?? null" :required="true"></x-number>

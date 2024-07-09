@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -12,15 +13,12 @@ use App\Http\Controllers\User\LoginController;
 use App\Http\Controllers\User\RegisterController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/register', [RegisteredUserController::class, 'create'])
-                ->middleware('guest')
-                ->name('register');
+// Route::get('/register', [RegisteredUserController::class, 'create'])
+//                 ->middleware('guest')
+//                 ->name('register');
 
-Route::post('/register', [RegisteredUserController::class, 'store'])
-                ->middleware('guest');
-
-
-
+// Route::post('/register', [RegisteredUserController::class, 'store'])
+//                 ->middleware('guest');
 
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
@@ -71,11 +69,10 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 
 
-Route::group(['as' => 'user.', 'middleware' => 'lang', 'namespace' => 'User'], function () {
+Route::group(['as' => 'user.', 'middleware' => ['lang'], 'namespace' => 'User'], function () {
 
     Route::get('user/register', [RegisterController::class, 'create'])
         ->name('register');
-
 
     Route::get('user/logout', [LoginController::class, 'logout'])
         ->middleware('auth:user')
@@ -111,6 +108,30 @@ Route::group(['as' => 'user.', 'middleware' => 'lang', 'namespace' => 'User'], f
 
     Route::post('/reset/password/', [RegisterController::class, 'sendCode'])
         ->name('send-code');
-
-
+    
+    Route::get('/email/verify',function(){
+        if(session()->has('user')){
+            return view('website.auth.verify-code');
+        }else{
+            return redirect()->route('user.login');
+        }
+    })->name('verification.notice');
+    
+    Route::post('/email/verify', [RegisterController::class, 'verificationCode'])->name('verification.code');
+    Route::post('/email/verify/resend-code', [RegisterController::class, 'resendVerificationCode'])->name('verification.resendcode');
+    
+    // Route::get('/email/verify',function(){
+    //     return view('website.auth.verify-email');
+    // })->name('verification.notice');
+    
+    // Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    //     $request->fulfill();
+    //     return redirect()->route('user.index');
+    // })->middleware(['auth', 'signed'])->name('verification.verify');
+    
+    // Route::post('/email/verification-notification', function (Request $request) {
+    //     $request->user()->sendEmailVerificationNotification();
+    //     return back()->with('message', 'Verification link sent!');
+    // })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+    
 });

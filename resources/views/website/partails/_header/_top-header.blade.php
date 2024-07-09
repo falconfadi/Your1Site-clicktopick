@@ -1,23 +1,21 @@
 <!-- Topbar Start -->
 <div class="container-fluid">
-    <div class="row bg-primary py-2 px-xl-5">
-        {{-- <div class="col-lg-6 d-none d-lg-block">
-        </div> --}}
+    <div class="row bg-primary py-1">
         <div class="col-lg-12 text-center text-lg-center">
             <div class="d-inline-flex align-items-center">
-                <a class="text-white px-2" href="">
+                <a class="text-white px-2" target="_blank" href="{{getSetting('facebook') ?? 'https://www.facebook.com/' }}">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-                <a class="text-white px-2" href="https://www.x.com/">
+                <a class="text-white px-2" target="_blank" href="{{getSetting('x') ?? 'https://www.x.com/' }}">
                     <i class="fab fa-twitter"></i>
                 </a>
-                <a class="text-white px-2" href="https://www.linkedin.com/feed/">
+                <a class="text-white px-2" target="_blank" href="{{getSetting('linkedin') ?? 'https://www.linkedin.com/' }}">
                     <i class="fab fa-linkedin-in"></i>
                 </a>
-                <a class="text-white px-2" href="https://www.instagram.com/">
+                <a class="text-white px-2" target="_blank" href="{{getSetting('instagram') ?? 'https://www.instagram.com/' }}">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a class="text-white pl-2" href="https://www.youtube.com/">
+                <a class="text-white pl-2" target="_blank" href="{{getSetting('youtube') ?? 'https://www.youtube.com/' }}">
                     <i class="fab fa-youtube"></i>
                 </a>
 
@@ -40,21 +38,6 @@
                         </span>
                     </a>
                 @endif
-
-                {{-- <div class="input-group">
-                    <select onchange="location = this.value;" class="w-25 text-dark pl-2 mx-2 form-control">
-                        <option value="{{ route('change-lang', ['lang' => 'en']) }}"
-                            {{ !checkCurrentLang() and (session()->get('lang') == 'en' ? 'selected' : '') }}> English
-                            (United States)
-                        </option>
-                        <option value="{{ route('change-lang', ['lang' => 'ar']) }}"
-                            {{ checkCurrentLang() ? 'selected' : '' }}>عربي
-                        </option>
-                    </select>
-                </div> --}}
-            </div>
-            <div>
-
             </div>
         </div>
     </div>
@@ -64,10 +47,8 @@
                 <a href="{{ route('user.index') }}" class="text-decoration-none">
                     <img src="{{ asset('web/img/logo-1.png') }}" alt="logo" class="mx-5"
                         style="width: 10rem; height: 3rem;" />
-
                 </a>
             </div>
-
         </div>
         <div class="col-lg-6 col-6 text-left">
             <form method="get" action="{{ route('user.products.index') }}" class="mb-0">
@@ -82,11 +63,11 @@
                 </div>
             </form>
         </div>
-        <div class="col-lg-3 col-6 text-center">
-            <a href="{{ route('user.wishlist') }}" class="btn border">
-                <i class="fas fa-heart text-primary"></i>
-                <span class="badge">{{ getCountWishlistItems() }}</span>
-            </a>
+        <div class="col-lg-3 col-6 {{app()->getLocale() == 'ar' ? 'text-left':'text-right'}}">
+            <!--<a href="{{ route('user.wishlist') }}" class="btn border">-->
+            <!--    <i class="fas fa-heart text-primary"></i>-->
+            <!--    <span class="badge">{{ getCountWishlistItems() }}</span>-->
+            <!--</a>-->
             <a href="{{ route('cart') }}" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
                 <span class="badge">{{ getCountCartItems() }}</span>

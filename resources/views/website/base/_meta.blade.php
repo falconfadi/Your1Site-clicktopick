@@ -7,7 +7,6 @@
 <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 
 <!-- Favicon -->
-{{-- <link href="{{asset('web/img/favicon.ico')}}" rel="icon"> --}}
 <link href="{{asset('icons/icon.png')}}" rel="icon">
 
 <!-- Google Web Fonts -->
@@ -26,10 +25,8 @@
 
 @if(!checkCurrentLang())
     <link rel="stylesheet" type="text/css" href="{{asset('web/css/style.css')}}">
-
 @else
     <link rel="stylesheet" type="text/css" href="{{asset('web/css/style-ar.css')}}">
-
 @endif
 <script src="{{asset('web/js/jquery/jquery.min.js')}}"></script>
 
@@ -47,4 +44,6 @@
 <input type="hidden" id="cart_id" value="{{route('cart')}}">
 <input type="hidden" id="main_currancy" value="{{getAppCurrency()->symbol}}">
 
-{{--=--=-============================================--}}
+
+
+

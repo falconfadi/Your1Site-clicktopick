@@ -87,22 +87,21 @@ class CartController extends Controller
         $product = Product::query()->findOrFail($request->get('id'));
         $userId = auth('user')->id();
         $quantity = $request->get('quantity') ?? 1;
-        $this->updateInventory($product->id,$quantity);
+        if(!$this->updateInventory($product->id,$quantity)){
+            return response()->json(['message' => 'Out of Stock' ],404);
+        }
         $cart = Cart::query()->notActive()->whereUserId($userId)->first();
         if ($cart) {
             $this->createCartItem($product, $quantity, $cart);
-            $cart = Cart::query()->find($cart->id);
-            $cart->calculateTotalPrice();
         } else {
             $cart = $this->createCart();
             $cart->save();
             $this->createCartItem($product, $quantity, $cart);
-            $cart = Cart::query()->find($cart->id);
-            $cart->calculateTotalPrice();
         }
-        
+        $cart = Cart::find($cart->id);
+        $cart->calculateTotalPrice();
         $countCartItems = getCountCartItems();
-        return response()->json(['message' => 'success', 'status' => 200, 'value' => __('front.add_to_cart'), 'countItems' => $countCartItems]);
+        return response()->json(['message' => 'success', 'value' => __('front.add_to_cart'), 'countItems' => $countCartItems],200);
     }
     
     public function updateInventory($product_id,$quantity)
@@ -112,10 +111,9 @@ class CartController extends Controller
         {
             if($inventory->first()->quantity > $quantity)
             {
-                $inventory->update(['quantity'=>$inventory->first()->quantity - $quantity]);
+                return $inventory->update(['quantity'=>$inventory->first()->quantity - $quantity]);
             }else{
-                request()->session()->flash('message','No quantity in inventory');
-                return redirect()->json(['message' => 'Error', 'status' => 404, 'value' => 'No quantity in inventory' ]);
+                return false;
             }
         }
     }
@@ -125,8 +123,12 @@ class CartController extends Controller
         if ($request->has('product_id')) {
             $cartItem = CartItem::whereCartId($request->get('cart_id'))->whereProductId($request->get('product_id'))->first();
             $cartItem->delete();
-            Cart::query()->find($request->get('cart_id'))->calculateTotalPrice();
             $this->restorInventory($request->product_id,$cartItem->qty);
+            $cart = Cart::find($request->get('cart_id'));
+            $cart->calculateTotalPrice();
+            if($cart->items()->count()==0){
+                $cart->delete();
+            }
         } else {
             $cartItems = CartItem::whereCartId($request->get('cart_id'))->get();
             foreach ($cartItems as $item) {
@@ -134,8 +136,8 @@ class CartController extends Controller
                 $item->delete();
             }
             $cart = Cart::findOrFail($request->get('cart_id'));
-            $countCartItems = getCountCartItems();
-            return response()->json(['message' => 'success', 'status' => 200, 'value' => __('front.clear_cart_items'), 'countItems' => $countCartItems]);
+            $cart->delete();
+            return response()->json(['message' => 'success', 'value' => __('front.clear_cart_items')],200);
         }
         $countCartItems = getCountCartItems();
         return response()->json(['message' => 'success', 'status' => 200, 'value' => __('front.remove_from_cart'), 'countItems' => $countCartItems]);
@@ -157,32 +159,30 @@ class CartController extends Controller
             $id = intval(getStringBetween($itemId, '[', ']'));
             $item = CartItem::query()->find($id);
             $this->restorInventory($item->product_id,$item->qty);
-            $this->updateInventory($item->product_id,$qty);
+            if(!$this->updateInventory($item->product_id,$qty)){
+                $this->updateInventory($item->product_id,$item->qty);
+                return response()->json(['message' => 'Stock quantity is not sufficient for this order' ],404);
+            }
             $ranges = DB::table('product_price_ranges')->where('product_id',$item->product_id)->get();
             $price = round($item->product->getRawOriginal('price') * $qty, 2);
             if(isset($ranges) && !is_null($ranges))
             {
                 foreach($ranges as $range)
                 {
-                    if($qty > $range->range_start && $qty <= $range->range_end)
-                    {
+                    if($qty > $range->range_start && $qty <= $range->range_end){
                         $price = round($range->price * $qty, 2);
                     }
                 }
             }
-            
             $item->update([
                 'qty' => $qty,
                 'price' => $price,
                 'price_before_discount' => round($item->product->getRawOriginal('price_before_discount') * $qty, 2),
             ]);
         }
-
         $cart = Cart::query()->find($request->get('cart_id'));
         $cart->calculateTotalPrice();
-
         return response()->json(['message' => 'success', 'status' => 200, 'value' => __('front.update_the_cart'), 'data' => $cart]);
-
     }
 
 
@@ -196,16 +196,14 @@ class CartController extends Controller
         try {
             $coupon = $request->filled('coupon') ? Coupon::findOrFail($request->coupon) : null ;
             
-            if ($request->get('firstname') != null) {
+            if(!$userAddressDetails){
+                $shippingDetails = $this->createShippingDetails($user, $user->id);
+                $shippingDetails->save();
+            }elseif($request->has('checkeds')){
                 $shippingDetails = $this->createOtherDetails($request->all());
                 $shippingDetails->save();
-            } else {
-                if (!$userAddressDetails) {
-                    $shippingDetails = $this->createShippingDetails($user, $user->id);
-                    $shippingDetails->save();
-                }else{
-                    $shippingDetails = $userAddressDetails;
-                }
+            }else{
+                $shippingDetails = $userAddressDetails;
             }
             $shippingPrice = $cart->calculateShippingPrice();
             $orderDetails = $this->createOrderDetails($user->id, $shippingDetails->id, $shippingPrice);
@@ -229,7 +227,6 @@ class CartController extends Controller
 
     public function createCart($orderId = null, $status = 0): Cart
     {
-
         return new Cart([
             'user_id' => auth('user')->id(),
             'currency_id' => getAppCurrency()->id,
@@ -261,11 +258,11 @@ class CartController extends Controller
     public function createShippingDetails($request, $userId): ShippingDetails
     {
         return new ShippingDetails([
+            'user_id' => $userId,
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
-            'user_id' => $userId,
             'city_id' => null,
-            'post_code' => $request['post_code'] ?? 0000,
+            'post_code' => $request['post_code'] ?? 00000,
             'address' => $request['address'] ?? 'address',
             'phone_number' => $request['phone_number'],
             'email' => $request['email'],
@@ -279,9 +276,9 @@ class CartController extends Controller
             'first_name' => $request['firstname'],
             'last_name' => $request['lastname'],
             'city_id' => null,
-            'post_code' => $request['postcode'],
+            'post_code' => $request['postcode'] ?? 00000,
             'main' => 0,
-            'address' => $request['billing_address'],
+            'address' => $request['billing_address'] ?? 'address',
             'phone_number' => $request['mobile'],
             'email' => $request['email2'],
         ]);

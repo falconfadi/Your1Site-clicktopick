@@ -11,9 +11,9 @@
 
     {{-- <script src="{{ asset('assets/js/pages/widgets.js') }}"></script> --}}
 
-    {{-- <script src="{{ asset('assets/plugins/custom/tinymce/tinymce.bundle.js') }}"></script>
+    <script src="{{ asset('assets/plugins/custom/tinymce/tinymce.bundle.js') }}"></script>
 
-    <!--<script async src="{{ asset('assets/js/pages/crud/forms/editors/tinymce.min.js') }}"></script> -->
+    <script src="{{ asset('assets/js/pages/crud/forms/editors/tinymce.min.js') }}"></script> 
 
     <script async src="{{ asset('assets/js/pages/features/miscellaneous/sweetalert2.min.js') }}"></script>
 

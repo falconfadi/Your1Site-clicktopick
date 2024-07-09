@@ -4,17 +4,7 @@
 @endsection
 @section('content')
     <!-- Start of Main -->
-    <!-- Start of Breadcrumb -->
-{{--    <nav class="breadcrumb-nav">--}}
-{{--        <div class="container">--}}
-{{--            <ul class="breadcrumb shop-breadcrumb bb-no">--}}
-{{--                <li class="passed"><a href="{{route('cart')}}">{{__('front.shopping')}}</a></li>--}}
-{{--                <li class="active"><a href="{{route('checkout')}}">{{__('front.checkout')}}</a></li>--}}
-{{--                <li><a href="#">{{__('front.order_complete')}}</a></li>--}}
-{{--            </ul>--}}
-{{--        </div>--}}
-{{--    </nav>--}}
-    <!-- End of Breadcrumb -->
+    
     <!-- Start of PageContent -->
     <div class="page-content">
         <div class="container">
@@ -45,96 +35,16 @@
                             <h3 class="title billing-title text-uppercase ls-10 pt-1 pb-3 mb-0">
                                 {{__('front.billing_details')}}
                             </h3>
-{{--                            <div id="name" class="row gutter-sm">--}}
-{{--                                <div class="col-xs-6">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label>{{__('front.first_name')}} <span style="color: red">*</span></label>--}}
-{{--                                        <input value="{{old('first_name',$BillingAddress->first_name??'')}}"--}}
-{{--                                               type="text" class="form-control form-control-md" name="first_name"--}}
-{{--                                               required>--}}
-{{--                                        @error('address')--}}
-{{--                                        <li style="color:#BD362F;!important list-style: none;"--}}
-{{--                                            class="text-danger">{{ $message }}</li>--}}
-{{--                                        @enderror--}}
-{{--                                    </div>--}}
-
-{{--                                </div>--}}
-{{--                                <div class="col-xs-6">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label>{{__('front.last_name')}} <span style="color: red">*</span></label>--}}
-{{--                                        <input value="{{old('last_name',$BillingAddress->last_name??'')}}" type="text"--}}
-{{--                                               class="form-control form-control-md" name="last_name"--}}
-{{--                                               required>--}}
-{{--                                    </div>--}}
-{{--                                    @error('address')--}}
-{{--                                    <li style="color:#BD362F;!important list-style: none;"--}}
-{{--                                        class="text-danger">{{ $message }}</li>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div id="city" class="form-group">--}}
-{{--                                <div class="select-box">--}}
-{{--                                    <label>{{__('front.city')}}<span style="color: red">*</span></label>--}}
-{{--                                    <select name="city_id" class="form-control w-100 form-control-md"--}}
-{{--                                            style="max-width: 100%">--}}
-{{--                                        <option value="0" selected="selected">{{__('front.select_city')}}</option>--}}
-{{--                                        @foreach(getCities() as $city)--}}
-{{--                                            @if($BillingAddress)--}}
-{{--                                                <option {{($BillingAddress->city_id == $city->id?'selected':'')??'' }}--}}
-{{--                                                        value="{{$city->id}}">{{$city->name}}</option>--}}
-{{--                                            @else--}}
-{{--                                                <option--}}
-{{--                                                    value="{{$city->id}}">{{$city->name}}</option>--}}
-{{--                                            @endif--}}
-{{--                                        @endforeach--}}
-{{--                                    </select>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div id="address" class="form-group">--}}
-{{--                                <label>{{__('front.addresses')}}<span style="color: red">*</span></label>--}}
-{{--                                <input value="{{old('address',$BillingAddress->address??'')}}" type="text"--}}
-{{--                                       class="form-control form-control-md mb-2" name="address" required>--}}
-{{--                            </div>--}}
-{{--                            @error('address')--}}
-{{--                            <li style="color:#BD362F;!important list-style: none;"--}}
-{{--                                class="text-danger">{{ $message }}</li>--}}
-{{--                            @enderror--}}
-{{--                            <div id="phone" class="row gutter-sm">--}}
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label>{{__('front.post_code')}} <span style="color: red">*</span></label>--}}
-{{--                                        <input value="{{old('post_code',$BillingAddress->post_code??'')}}" type="text"--}}
-{{--                                               class="form-control form-control-md" name="post_code" required>--}}
-
-{{--                                    </div>--}}
-{{--                                    @error('post_code')--}}
-{{--                                    <li style="color:#BD362F;!important list-style: none;"--}}
-{{--                                        class="text-danger">{{ $message }}</li>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label>{{__('front.phone')}} <span style="color: red">*</span></label>--}}
-{{--                                        <input value="{{old('phone_number',$BillingAddress->phone_number??'')}}"--}}
-{{--                                               type="text" class="form-control form-control-md" name="phone_number"--}}
-{{--                                               required>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div id="email_user" class="form-group mb-7">--}}
-{{--                                <label>{{__('front.email')}}<span style="color: red">*</span></label>--}}
-{{--                                <input value="{{old('email',$BillingAddress->email??'')}}" type="email"--}}
-{{--                                       class="form-control form-control-md" name="email" required>--}}
-{{--                            </div>--}}
-
-                            <div class="form-group checkbox-toggle pb-2">
-                                <input type="checkbox" class="custom-checkbox" onclick="slideContent()"
-                                       id="shipping-toggle" name="checkeds" value="1">
-                                <label for="shipping-toggle" onclick="slideContent()">
-                                    {{__('front.shipping_other_address')}}
-                                </label>
-                            </div>
-                            <div class="checkbox-content" id="form" style="display:none;">
+                            @if(auth('user')->user()->shippingDetails()->exists() )
+                                <div class="form-group checkbox-toggle pb-2" onclick="slideContent()">
+                                    <input type="checkbox" class="custom-checkbox"
+                                           id="shipping-toggle" name="checkeds" value="1">
+                                    <label for="shipping-toggle" onclick="slideContent()">
+                                        {{__('front.shipping_other_address')}}
+                                    </label>
+                                </div>
+                            @endif
+                            <div class="checkbox-content" id="form" style="{{auth()->user()->shippingDetails()->exists() ? 'display:none;':''}}">
                                 <div class="row gutter-sm">
                                     <div class="col-5 mr-2">
                                         <div class="form-group">

@@ -40,12 +40,12 @@ class ProductController extends Controller
 
         return view('website.pages.product.index', compact('products','attributes', 'productBanner'));
     }
+    
     public function getProductsByMainCategory($slug)
     {
         $category = Category::query()->where('slug',$slug)->firstOrFail();
         return view('website.pages.category.sub-category', compact('category'));
     }
-
 
     public function filterShopProducts(Request $request): JsonResponse
     {

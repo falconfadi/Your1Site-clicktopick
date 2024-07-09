@@ -134,18 +134,19 @@ class SettingController extends Controller
     public function addAdminSetting(Request $request)
     {
         $validated = $request->validate([
-            'setting_key'=>['required','string'],
-            'setting_value'=>['required','string'],
+            'setting_key'=>['required','string','unique:admin_setting,setting_key'],
+            'setting_value'=>['required','url'],
+        ],[
+            'setting_key.unique'=>'Setting is already exists',  
+            'setting_value.url'=>'Value must be valid url',
         ]);
-
-        // dd(DB::table('admin_setting')->orderByDesc('created_at')->get()[0]->id);
 
         $store = DB::table('admin_setting')->updateOrInsert([
             'admin_id'=>auth()->user()->id,
             'setting_key'=>$validated['setting_key'],
             'setting_value'=>$validated['setting_value'],
         ]);
-        return back()->with('message','setting Added succesfuly');
+        return back()->with('message','Setting Added succesfuly');
     }
 
     public function getAdminSetting()
@@ -153,11 +154,18 @@ class SettingController extends Controller
         return DB::table('admin_setting')->get();
     }
 
-
+    public function EditAdminSetting(Request $request, $id){
+        $query = DB::table('admin_setting')->where('id',$id);
+        $setting = $query->first();
+        if(!$setting || !array_key_exists( $setting->setting_key,$request->all() ) ){
+            return back()->with('error','Not found');
+        }
+        $query->update(['setting_value'=>$request->get($setting->setting_key)]);
+        return back()->with('success','Setting Updated');
+    }
 
     public function deleteAdminSetting($id)
     {
-        // dd($id);
         DB::table('admin_setting')->where('id',$id)->delete();
         return back()->with('message','Setting Deleted');
     }

@@ -14,3 +14,8 @@
         <li style="color:#BD362F;!important" class="text-danger">    {{ Session::get('error')}}</li>
     </div>
 @endif
+@if(Session::has('success'))
+    <div class="alert alert-success">
+        <li class="text-success">{{ Session::get('success')}}</li>
+    </div>
+@endif

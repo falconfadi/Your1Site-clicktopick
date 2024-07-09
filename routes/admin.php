@@ -148,6 +148,7 @@ Route::resource('coupons', '\App\Http\Controllers\Admin\CouponController');
 // Admin new Setting
 Route::get('adminSetting',[SettingController::class,'getAdminSetting'])->name('getAdminSetting');
 Route::post('addAdminSetting',[SettingController::class,'addAdminSetting'])->name('addAdminSetting');
+Route::post('editAdminSetting/{id}',[SettingController::class,'editAdminSetting'])->name('editAdminSetting');
 Route::get('deleteAdminSetting/{id}',[SettingController::class,'deleteAdminSetting'])->name('deleteAdminSetting');
 
 Route::post('productPriceRanges/{product}',[ProductController::class,'productPriceRanges'])->name('productPriceRanges');
@@ -157,4 +158,7 @@ Route::post('deleteProductPriceRange/{range_id}',[ProductController::class,'dele
 Route::get('inventory',[InventoryController::class,'index'])->name('inventory.index');
 Route::post('addInventoryItemQuantity/{id}',[InventoryController::class,'addInventoryItemQuantity'])->name('addInventoryItemQuantity');
 Route::post('deleteInventoryItem/{id}',[InventoryController::class,'deleteInventoryItem'])->name('deleteInventoryItem');
+Route::post('deleteCategoryImage/{id}',[\App\Http\Controllers\Admin\CategoryController::class,'deleteCategoryImage'])->name('deleteCategoryImage');
+Route::get('changePassword',[\App\Http\Controllers\Admin\AdminController::class,'changePasswordForm'])->name('changePasswordForm');
+Route::post('changePassword',[\App\Http\Controllers\Admin\AdminController::class,'changePassword'])->name('changePassword');
 

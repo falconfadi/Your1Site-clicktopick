@@ -7,6 +7,8 @@ use App\Http\Controllers\User\WishlistController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ProductController;
+use App\Mail\verifyUserEmail;
+use Illuminate\Support\Facades\Mail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +21,7 @@ use App\Http\Controllers\User\ProductController;
 */
 
 
-Route::middleware(['lang','currency'])->group(function () {
+Route::middleware(['lang','currency',])->group(function () {
     Route::get('/vendors', [HomeController::class, 'getVendors'])->name('vendors');
     Route::get('/become-vendor', [UserController::class, 'becomeVendor'])->name('become-vendor');
     Route::post('/become-vendor', [UserController::class, 'storeUserDetail'])->name('store-request-user');
@@ -38,10 +40,10 @@ Route::middleware(['lang','currency'])->group(function () {
     Route::post('/contact', [HomeController::class, 'contactUs'])
         ->name('contactUs');
  // RESOURCES
- Route::get('/filterProducts', [ProductController::class, 'getProducts'])->name('filterProducts');
- Route::get('/filter_products', [ProductController::class, 'filterShopProducts'])->name('filterShopProducts');
-
-Route::resource('products', '\App\Http\Controllers\User\ProductController');
+    Route::get('/filterProducts', [ProductController::class, 'getProducts'])->name('filterProducts');
+    Route::get('/filter_products', [ProductController::class, 'filterShopProducts'])->name('filterShopProducts');
+    
+    Route::resource('products', '\App\Http\Controllers\User\ProductController');
 
     Route::group(['prefix' => 'user', 'middleware' => 'auth:user'], function () {
         Route::get('/account/{option?}', [UserController::class, 'index'])->name('user-account');
@@ -51,22 +53,20 @@ Route::resource('products', '\App\Http\Controllers\User\ProductController');
 
 
 //CART
- Route::group(['middleware' => 'auth:user'], function () {
-    Route::get('/fetchData', [CartController::class, 'fetchData'])->name('fetchData');
-
-
-    Route::get('/cart', [CartController::class, 'getIndex'])->name('cart');
-    Route::get('/order', [CartController::class, 'getOrders'])->name('order');
-    Route::get('/order/{code?}', [CartController::class, 'showOrder'])->name('order.show');
-    Route::post('/remove-products', [CartController::class, 'removeProduct'])->name('remove-products');
-    Route::post('/update', [CartController::class, 'update'])->name('update-cart');
-    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
-    Route::get('/add-wishlist/{product?}', [WishlistController::class, 'store'])->name('add-wishlist');
-   Route::get('/check-coupon/{code?}', [CouponController::class, 'couponCheck'])->name('check-coupon');
-
-});
+    Route::group(['middleware' => 'auth:user'], function () {
+        Route::get('/fetchData', [CartController::class, 'fetchData'])->name('fetchData');
+        Route::get('/cart', [CartController::class, 'getIndex'])->name('cart');
+        Route::get('/order', [CartController::class, 'getOrders'])->name('order');
+        Route::get('/order/{code?}', [CartController::class, 'showOrder'])->name('order.show');
+        Route::post('/remove-products', [CartController::class, 'removeProduct'])->name('remove-products');
+        Route::post('/update', [CartController::class, 'update'])->name('update-cart');
+        Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
+        Route::get('/add-wishlist/{product?}', [WishlistController::class, 'store'])->name('add-wishlist');
+        Route::get('/check-coupon/{code?}', [CouponController::class, 'couponCheck'])->name('check-coupon');
+        
+    });
 //Product
-Route::get('/product/{slug}', [ProductController::class, 'getProductsByCategory'])->name('product-category');
-Route::get('/products/{slug}/category', [ProductController::class, 'getProductsByMainCategory'])->name('product-main-category');
-Route::get('/product/details/{id?}', [ProductController::class, 'getProductDetails'])->name('get-product-details');
+    Route::get('/product/{slug}', [ProductController::class, 'getProductsByCategory'])->name('product-category');
+    Route::get('/products/{slug}/category', [ProductController::class, 'getProductsByMainCategory'])->name('product-main-category');
+    Route::get('/product/details/{id?}', [ProductController::class, 'getProductDetails'])->name('get-product-details');
 });

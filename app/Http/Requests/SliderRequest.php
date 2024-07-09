@@ -30,14 +30,14 @@ class SliderRequest extends FormRequest
             case 'PUT':
             case 'PATCH':
                 return [
-                        'title:en' => 'required|max:100',
+                        // 'title:en' => 'required|max:100',
                         'sort_order' => 'required'
                     ];
             case 'DELETE':
                  return [];
             case 'POST':
                 return [
-                    'title:en' => 'required|max:100',
+                    // 'title:en' => 'required|max:100',
                     'sort_order' => 'required',
                     'background_image' => 'required|image',
                     'responsive_image' => 'required|image',

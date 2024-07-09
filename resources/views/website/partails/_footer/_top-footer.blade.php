@@ -11,9 +11,25 @@
                 Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore
                 amet erat.
             </p>
-            <p class="mb-2 text-white"><i class="fa fa-map-marker-alt text-white mr-3"></i> {{ getSetting('site_address') }}</p>
-            <p class="mb-2 text-white"><i class="fa fa-envelope text-white mr-3"></i>{{ getSetting('site_email') }}</p>
-            <p class="mb-0 text-white"><i class="fa fa-phone-alt text-white mr-3"></i>{{ getSetting('site_phone') }}</p>
+            <p class="mb-2">
+                <a class="text-white" href="geo:{{getSetting('address')}}">
+                    <i class="fa fa-map-marker-alt text-white mr-3"></i>
+                    {{ getSetting('address') ?? 'location, city, country' }}
+                </a>
+            </p>
+            <p class="mb-2">
+                <a class="text-white" href="mailto:{{getSetting('email')}}" target="_blank">
+                    <i class="fa fa-envelope text-white mr-3"></i>
+                    {{ getSetting('email') ?? 'click-to-pick@gmail.com' }}
+                </a>
+            </p>
+            <p class="mb-2">
+                <a class="text-white" href="tel:{{getSetting('phone')}}" target="_blank">
+                    <i class="fa fa-phone-alt text-white mr-3"></i>
+                    {{ getSetting('phone') ?? '+1111111111'}}
+                </a>    
+            </p>
+            
         </div>
         <div class="col-lg-8 col-md-12">
             <div class="row">
